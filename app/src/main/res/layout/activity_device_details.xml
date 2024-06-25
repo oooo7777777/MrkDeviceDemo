@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvConnectStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="连接状态:"
+                android:textColor="@android:color/holo_orange_dark" />
+
+            <TextView
+                android:id="@+id/tvConnectInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="设备信息:"
+                android:textColor="@android:color/holo_orange_dark" />
+
+            <TextView
+                android:id="@+id/tvContent"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="数据回调:"
+                android:textColor="@android:color/holo_orange_dark" />
+
+
+            <Button
+                android:id="@+id/btConnect"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="连接设备" />
+
+            <Button
+                android:id="@+id/btDisConnect"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="断开设备" />
+
+
+            <Button
+                android:id="@+id/btDataClear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="设备数据清零" />
+
+            <Button
+                android:id="@+id/btRegisterNotify"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="开启数据回调" />
+
+            <Button
+                android:id="@+id/btUnRegisterNotify"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="关闭数据回调" />
+
+
+            <ProgressBar
+                android:id="@+id/otaProgressBar"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="100" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/black"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvResistance"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="5dp"
+                    android:background="@android:color/holo_blue_light"
+                    android:gravity="center"
+                    android:text="当前阻力:1"
+                    android:textColor="@android:color/black" />
+
+                <EditText
+                    android:id="@+id/etResistance"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="5dp"
+                    android:gravity="center"
+                    android:hint="输入阻力数值"
+                    android:inputType="number"
+                    android:text="1"
+                    android:textColor="@android:color/white" />
+
+
+                <Button
+                    android:id="@+id/btResistance"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:text="发送阻力" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llSlope"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="20dp"
+                android:background="@android:color/black"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <TextView
+                    android:id="@+id/tvSlope"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="5dp"
+                    android:background="@android:color/holo_blue_light"
+                    android:gravity="center"
+                    android:paddingStart="5dp"
+                    android:text="当前坡度:1"
+                    android:textColor="@android:color/black" />
+
+                <EditText
+                    android:id="@+id/etSlope"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="5dp"
+                    android:gravity="center"
+                    android:hint="输入坡度数值"
+                    android:inputType="numberSigned"
+                    android:text="1"
+                    android:textColor="@android:color/white" />
+
+                <Button
+                    android:id="@+id/btSlope"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:text="发送坡度" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llTreadmill"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:background="@android:color/holo_red_dark"
+                android:orientation="vertical"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="跑步机专有属性"
+                    android:textColor="@android:color/white" />
+
+                <TextView
+                    android:id="@+id/tvDeviceStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="跑步机设备状态:"
+                    android:textColor="@android:color/white" />
+
+
+                <Button
+                    android:id="@+id/btStart"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="启动设备" />
+
+                <Button
+                    android:id="@+id/btPause"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="暂停设备" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/black"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvSpeed"
+                        android:layout_width="100dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="5dp"
+                        android:background="@android:color/holo_blue_light"
+                        android:gravity="center"
+                        android:paddingStart="5dp"
+                        android:text="当前速度:1"
+                        android:textColor="@android:color/black" />
+
+                    <EditText
+                        android:id="@+id/etSpeed"
+                        android:layout_width="100dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="5dp"
+                        android:gravity="center"
+                        android:hint="输入速度数值"
+                        android:inputType="number"
+                        android:text="1"
+                        android:textColor="@android:color/white" />
+
+                    <Button
+                        android:id="@+id/btSpeed"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:text="发送速度" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>
