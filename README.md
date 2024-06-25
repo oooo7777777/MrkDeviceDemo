@@ -19,6 +19,8 @@
 *   在项目根目录 `build.gradle` 文件的 `allprojects.repositories` 块中，添加maven 库地址配置 
     
 
+
+```
     allprojects {
       repositories {
         maven {
@@ -40,19 +42,25 @@
             }
       }
     }
+```
+
 
 *   在 `app/build.gradle` 文件的 `dependencies` 块中添加SDK依赖。(为了方便联调暂时用SNAPSHOT版本，后续根据情况再提供release版本)
     
 
+
+```
     dependencies {
           implementation 'com.mrk.device.small:mrkDeviceSmall:0.0.11-SNAPSHOT'
     }
+```
+
 
 #### 手动集成
 
 *    [下载此sdk](https://gitee.com/williamOsChina/mrk-device-demo/blob/main/app/libs/MrkDevice_0.0.11-SNAPSHOT.aar)，在Android Studio的项目工程libs目录中拷入相关组件aar包，右键Android Studio的项目工程 —> 选择Open Module Settings —> 在 Project Structure弹出框中 —> 选择 Dependencies选项卡 —> 点击左下方“＋” —> 选择组件包类型 —> 引入相应的包。
     
-
+```
     repositories{
         flatDir{
             dirs 'libs'
@@ -69,6 +77,8 @@
         implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.0"
         implementation 'com.alibaba:fastjson:1.2.83'
     }
+```
+
 
 ## 使用说明
 
@@ -87,6 +97,8 @@
 
 为了搜索与连接设备。需要向您申请以下权限：
 
+
+```
     <uses-permission android:name="android.permission.INTERNET" />
       <!--    蓝牙所需权限-->
       <uses-permission
@@ -108,11 +120,15 @@
       <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
       <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
       <!--    蓝牙所需权限-->
+```
+
     
 
 代码示例
 
-    public String[] getBLEPermissions() {
+   
+```
+ public String[] getBLEPermissions() {
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
         return new String[]{
           Manifest.permission.BLUETOOTH_SCAN,
@@ -127,16 +143,24 @@
         };
       }
     }
+```
+
 
 #### SDK初始化
 
 在您应用的启动入口调用SDK的初始化代码：`application`为你项目的Application，`isDebug`表示是否是调试模式，调试模式下会打印关键日志。日志TAG为：`BluetoothManager`。
 
+
+```
     MrkDeviceManger.INSTANCE.init(application,isDebug);
+
+```
 
 #### 监听所有设备连接状态
 
-    MrkDeviceManger.INSTANCE.registerBluetoothStateListener(new BluetoothStatusListener() {
+   
+```
+ MrkDeviceManger.INSTANCE.registerBluetoothStateListener(new BluetoothStatusListener() {
                 @Override
                 public void onBluetoothStatus(BluetoothEnum bluetoothEnum) {
                     //蓝牙开关状态
@@ -162,6 +186,8 @@
                     }
                 }
             });
+```
+
 
 #### 开始设备搜索
 
@@ -172,7 +198,9 @@
 *   搜索超时时间为10秒，10秒以后会回调搜索结束`BluetoothEnum.STOP` 调用搜索结束或点击连接设备也会回调。
     
 
-    MrkDeviceManger.INSTANCE.startSearch(this, new BluetoothSearchListener() {
+  
+```
+  MrkDeviceManger.INSTANCE.startSearch(this, new BluetoothSearchListener() {
                 @Override
                 public void onSearchStatus(BluetoothEnum bluetoothEnum) {
                     //设备搜索状态
@@ -182,13 +210,18 @@
                    //搜索到的设备对象
                 }
             });
+```
+
 
 #### 停止设备搜索
 
 *   SDK内部会在设备连接的时候也会同步调用此方法。
     
 
+```
     MrkDeviceManger.INSTANCE.stopSearch();
+
+```
 
 #### 设备连接
 
@@ -201,42 +234,68 @@
 
 把搜索到的设备对象`DeviceSearchBean`传入，即可连接设备。
 
+
+```
     MrkDeviceManger.INSTANCE.create(context, DeviceSearchBean).connect();
+
+```
     
 
 方法2：通过必要参数连接。
 
 把搜索到的设备对象`DeviceSearchBean`保存`mac`mac地址，`productId`产品Id，`bluetoothName`蓝牙广播名， `modelId`型号id， `uniqueModelIdentify` 设备特征值。通过这些参数去连接。
 
+
+```
     MrkDeviceManger.INSTANCE.create(context,mac,productId,bluetoothName,modelId,uniqueModelIdentify).connect();
+
+```
 
 #### 断开设备连接
 
 把需要断开连接的`mac`地址传入，即可断开连接设备。`mac`地址在搜索到的设备对象跟连接成功后返回的对象里面有。
 
+
+```
     MrkDeviceManger.INSTANCE.disConnect(mac) 
+
+```
 
 #### 判断设备是否连接
 
 `params`可以是设备大类  也可以mac地址。
 
+
+```
     MrkDeviceManger.INSTANCE.isConnect(params) 
+
+```
 
 #### 清空数据
 
 `mac`可传入null，传入null则表示清除掉当前所有的连接设备，不为null，则清除当前mac地址的设备。
 
+
+```
     MrkDeviceManger.INSTANCE.clear(Context，mac) 
+
+```
 
 #### 通过设备大类id 返回对象的设备名称
 
 `productId` 设备大类id
 
+
+```
     MrkDeviceManger.INSTANCE.getTypeName(productId) 
+
+```
     
     
     
-    fun getTypeName(productId: String): String {
+  
+```
+  fun getTypeName(productId: String): String {
             return when (productId) {
                 DeviceConstants.D_BICYCLE -> "动感单车"
                 DeviceConstants.D_TREADMILL -> "跑步机"
@@ -258,6 +317,8 @@
                 }
             }
         }
+```
+
 
 #### 控制设备
 
@@ -268,21 +329,32 @@
 
 1.通过设备大类创建
 
+
+```
     deviceControl = MrkDeviceManger.INSTANCE.create(this, productId)//设备大类ID，
       .setOnDeviceListener(deviceListener)//设置设备状态监听
       .registerDevice();//注册设备状态
+```
+
 
 2.通过设备的mac地址创建
 
+```
     deviceControl = MrkDeviceManger.INSTANCE.create(this, mac)//设备mac地址
       .setOnDeviceListener(deviceListener)//设置设备状态监听
       .registerDevice();//注册设备状态
+```
+
 
 3.通过搜索对象创建
 
+
+```
     deviceControl = MrkDeviceManger.INSTANCE.create(this, DeviceSearchBean)//搜索对象
       .setOnDeviceListener(deviceListener)//设置设备状态监听
       .registerDevice();//注册设备状态
+```
+
 
 *   开启自动重连
     
@@ -295,12 +367,16 @@
 此功能建议在运动模式下开启。
 :::
 
-    deviceControl.autoConnect()
+`    deviceControl.autoConnect()`
 
 *   关闭自动重连
     
 
+
+```
     deviceControl.unAutoConnect()
+
+```
 
 *   发送控制指令
     
@@ -309,6 +385,8 @@
 控制指令，SDK内部有做设备最大最小指令限制。如设备最大阻力15，下发了16，SDK内部会直接发送设备的最大阻力。坡度，速度亦是如此。
 :::
 
+
+```
     //发送设备控制指令 阻力(如果发错了，设备不会响应)
     //resistance 阻力
     deviceControl.sendCommandResistance(resistance: Int)
@@ -319,11 +397,15 @@
     
     //发送跑步机控制指令 速度与坡度（不论是发送速度还是坡度都要使用此方法，请不要使用单独的sendCommandSlope）
     deviceControl.sendCommandTreadmill(speed: Int, slope: Int) 
+```
+
     
 
 根据麦瑞克提供的课程教案
 
-     {
+    
+```
+ {
                     "id": "1604735072183595009",
                     "name": "拉伸",
                     "describeInfo": "",
@@ -354,20 +436,32 @@
                     "maxNum": 0.0,
                     "speedDesc": "最高踏频(rpm)"
                 },
+```
+
 
 当设备为：动感单车，椭圆机，划船机时（阻力对应以上教案中的 `adviseNum`,坡度对应以上教案中的 `slopeNum`）
 
+
+```
     //动感单车，椭圆机，划船机发送阻力
     deviceControl.sendCommandResistance(adviseNum)
     //动感单车，椭圆机，划船机发送坡度
     deviceControl.sendCommandSlope(slopeNum)
+```
+
 
 当设备为：跑步机时（速度对应以上教案中的 `maxNum`,坡度对应以上教案中的 `adviseNum`）
 
+
+```
     deviceControl.sendCommandTreadmill(maxNum, adviseNum) 
+
+```
 
 *   其他控制
     
+
+```
 
     //当前设备连接
     deviceControl.connect()
@@ -398,12 +492,16 @@
     //发送跑步机控制指令 速度与坡度（不论是发送速度还是坡度都要使用此方法，请不要使用单独的sendCommandSlope）
     deviceControl.sendCommandTreadmill(speed: Int, slope: Int) 
     
+```
+
 
 ## 对象参数说明
 
 **蓝牙状态** `**BluetoothEnum**`
 
-    /**
+  
+```
+  /**
      * @param OPEN  蓝牙开关打开
      * @param CLOSE   蓝牙开关关闭
      * @param START  开始搜索
@@ -414,9 +512,13 @@
         OPEN, CLOSE, START, STOP, ING
     }
 
+```
+
 **设备连接状态** `**DeviceConnectEnum**`
 
-    /**
+ 
+```
+   /**
      * 设备连接状态
      * @param ON 设备连接成功
      * @param OFF 设备未连接
@@ -427,9 +529,13 @@
         ON, OFF, ING, ERROR
     }
 
+```
+
 **跑步机设备状态**  `**DeviceTreadmillEnum**`
 
-    /**
+  
+```
+  /**
      * @param START  跑步机 设备开始 运行中
      * @param PAUSE  跑步机 设备暂停
      * @param STOP  跑步机 设备停止
@@ -441,10 +547,14 @@
     enum class DeviceTreadmillEnum {
         START, PAUSE, STOP, COUNT_TIME, SLOW_DOWN, WAIT, DISABLE
     }
+```
+
 
 整个设备对象  `DeviceMangerBean` 
 
-    @Parcelize
+ 
+```
+   @Parcelize
     data class DeviceMangerBean(
         var connectBean: DeviceGoConnectBean,//当前连接的对象
         var deviceOtaBean: DeviceOtaBean? = null,//当前设备的ota对象
@@ -453,10 +563,14 @@
         var deviceFunction: BaseDeviceFunction? = null,//当前设备的设备控制类
         var unitDistance: Int = -1//设备单位：1-公制，2-英制	 1
     )
+```
+
 
 **搜索对象**  `**DeviceSearchBean**` 
 
-    @Parcelize
+  
+```
+  @Parcelize
     data class DeviceSearchBean(
         val modelId: String = "", //型号id 1630452448293478401
         val originModelId: String = "", //起源型号id(老型号ID) 1630452448293478401
@@ -481,9 +595,13 @@
         ) : Parcelable
     }
 
+```
+
 设备详情  `DeviceDetailsBean` 
 
-    data class DeviceDetailsBean(
+   
+```
+ data class DeviceDetailsBean(
         val productId: String = "", //产品Id	  // 1
         val modelId: String = "", //型号id	 1744914228939124742
         val modelName: String = "",//型号名称
@@ -531,11 +649,15 @@
             val torqueMap: HashMap<String, Double> = HashMap()//扭矩
         )
     }
+```
+
     
 
 设备数据回调  `DeviceTrainBO` 
 
-    data class DeviceTrainBO(
+    
+```
+data class DeviceTrainBO(
         var dataType: Int = 0, //智健协议 车表类协议区分是 瞬时数据/累计数据  默认为0都包含  1；瞬时数据：2； 累计数据 3 辅助通道
         var linkId: Long = 0, //小节ID
         var speed: Float = 0f, //速度
@@ -568,6 +690,8 @@
         var unitDistance: Int = -1,//设备类型0：公制，1：英制
     )
     
+```
+
 
 ## 文件下载
 
