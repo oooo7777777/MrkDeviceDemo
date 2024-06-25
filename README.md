@@ -365,17 +365,14 @@
 开启此功能后，非人为主动断开即会触发设备重连。
 
 此功能建议在运动模式下开启。
-:::
-
-`    deviceControl.autoConnect()`
-
-*   关闭自动重连
-    
-
 
 ```
-    deviceControl.unAutoConnect()
-
+deviceControl.autoConnect()
+```
+*   关闭自动重连
+    
+```
+deviceControl.unAutoConnect()
 ```
 
 *   发送控制指令
