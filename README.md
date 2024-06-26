@@ -48,7 +48,7 @@
 
 ```
     dependencies {
-          implementation 'com.mrk.device.small:mrkDeviceSmall:0.0.11-SNAPSHOT'
+          implementation 'com.mrk.device.small:mrkDeviceSmall:0.0.12-SNAPSHOT'
     }
 ```
 
