@@ -480,7 +480,7 @@ deviceControl.unAutoConnect()
 
 ## 对象参数说明
 
-**蓝牙状态** `**BluetoothEnum**`
+**蓝牙状态** `BluetoothEnum`
 
   
 ```
@@ -496,7 +496,7 @@ deviceControl.unAutoConnect()
     }
 ```
 
-**设备连接状态** `**DeviceConnectEnum**`
+**设备连接状态** `DeviceConnectEnum`
 
  
 ```
@@ -512,7 +512,7 @@ deviceControl.unAutoConnect()
     }
 ```
 
-**跑步机设备状态**  `**DeviceTreadmillEnum**`
+**跑步机设备状态**  `DeviceTreadmillEnum`
 
   
 ```
@@ -546,7 +546,7 @@ deviceControl.unAutoConnect()
 ```
 
 
-**搜索对象**  `**DeviceSearchBean**` 
+**搜索对象**  `DeviceSearchBean` 
 
   
 ```
@@ -665,6 +665,6 @@ data class DeviceTrainBO(
 
 ## 文件下载
 
-SDK：[https://gitee.com/williamOsChina/mrk-device-demo/blob/main/app/libs/](https://gitee.com/williamOsChina/mrk-device-demo/blob/main/app/libs/)
+*   SDK：[https://gitee.com/williamOsChina/mrk-device-demo/blob/main/app/libs/](https://gitee.com/williamOsChina/mrk-device-demo/blob/main/app/libs/)
 
-Demo：[https://gitee.com/williamOsChina/mrk-device-demo](https://gitee.com/williamOsChina/mrk-device-demo)
+*   Demo：[https://gitee.com/williamOsChina/mrk-device-demo](https://gitee.com/williamOsChina/mrk-device-demo)
