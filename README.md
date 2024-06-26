@@ -66,7 +66,7 @@
     
     dependencies {
         implementation fileTree(include:['*.jar'], dir:'libs')
-        implementation (name:'mrkDevice-x.x.x', ext:'aar')
+        implementation (name:'MrkDevice_x.x.x', ext:'aar')
         implementation 'com.android.support:appcompat-v7:23.1.0'
         implementation "org.jetbrains.kotlin:kotlin-reflect:1.3.21"
         implementation "org.jetbrains.kotlin:kotlin-stdlib:1.3.21"
