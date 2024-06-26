@@ -5,7 +5,7 @@ import com.mrk.device.bean.DeviceSearchBean;
 /**
  * author  : ww
  * desc    :
- * time    : 2024/6/18 13:07
+ * time    :
  */
 public interface ConnectClickListener {
    void onClick(DeviceSearchBean bean);

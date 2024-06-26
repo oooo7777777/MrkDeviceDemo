@@ -45,6 +45,8 @@ public class MainActivity extends Activity {
 
         initView();
         registerDeviceListener();
+
+        MrkDeviceManger.INSTANCE.getConnectList();
     }
 
 

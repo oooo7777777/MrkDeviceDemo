@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * author  : ww
  * desc    :
- * time    : 2024/6/12 16:29
+ * time    :
  */
 public class SearchDeviceAdapter extends BaseAdapter {
     private Context context;

@@ -19,7 +19,7 @@ import com.mrk.device.device.DeviceListener;
 /**
  * author  : ww
  * desc    :
- * time    : 2024/5/28 13:41
+ * time    :
  */
 public class DeviceDetailsActivity extends Activity implements View.OnClickListener {
 
@@ -164,12 +164,26 @@ public class DeviceDetailsActivity extends Activity implements View.OnClickListe
 
                 }
             }
-            //是否支持设置坡度
+
             if (bean.getDeviceDetails() != null) {
+                //是否支持设置坡度
                 if (bean.getDeviceDetails().getProductModelTsl().getControlSlope() == 1) {
                     findViewById(R.id.llSlope).setVisibility(View.VISIBLE);
                 } else {
                     findViewById(R.id.llSlope).setVisibility(View.GONE);
+                }
+                //是否支持阻力
+                if (bean.getDeviceDetails().getProductModelTsl().getControlResistance() == 1) {
+                    findViewById(R.id.llResistance).setVisibility(View.VISIBLE);
+                } else {
+                    findViewById(R.id.llResistance).setVisibility(View.GONE);
+                }
+
+                //是否支持设备清零
+                if (bean.getDeviceDetails().getProductModelTsl().isClean() == 1) {
+                    findViewById(R.id.btDataClear).setVisibility(View.VISIBLE);
+                } else {
+                    findViewById(R.id.btDataClear).setVisibility(View.GONE);
                 }
             }
             deviceControl = MrkDeviceManger.INSTANCE.create(this, productId)
@@ -232,3 +246,4 @@ public class DeviceDetailsActivity extends Activity implements View.OnClickListe
         initDevice();
     }
 }
+
