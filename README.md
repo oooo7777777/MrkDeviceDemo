@@ -262,6 +262,12 @@
     MrkDeviceManger.INSTANCE.isConnect(params) 
 ```
 
+#### 获取所有已经连接的设备对象
+
+```
+     MrkDeviceManger.INSTANCE.getConnectList()
+```
+
 #### 清空数据
 
 `mac`可传入null或者设备的mac地址，传入null则表示清除掉当前所有的连接设备的数据，传入mac地址，则清除此mac地址设备的数据。
