@@ -1,14 +1,11 @@
 # 麦瑞克设备连接文档
 
 ## 使用须知
-
-:::
 此SDK只适配，跑步机T07,椭圆机E27,划船机Q1,动感单车S16四款设备，需要连接更多设备，请联系麦瑞克商务。
 
 所有设备类型只允许同时连接一个设备。如跑步机已经连接了一台，再连接跑步机时需要先断开之前所连接的跑步机。
 
 在使用SDK的搜索，连接设备前，请先确保所需权限以及蓝牙开关是否打开，设备是否唤醒且未被他人连接。
-:::
 
 ## 引入&配置SDK
 
@@ -16,7 +13,7 @@
 
 #### maven自动集成（推荐）
 
-*   在项目根目录 `build.gradle` 文件的 `allprojects.repositories` 块中，添加maven 库地址配置 
+* 在项目根目录 `build.gradle` 文件的 `allprojects.repositories` 块中，添加maven 库地址配置 
     
 
 
@@ -153,7 +150,6 @@
 
 ```
     MrkDeviceManger.INSTANCE.init(application,isDebug);
-
 ```
 
 #### 监听所有设备连接状态
@@ -220,7 +216,6 @@
 
 ```
     MrkDeviceManger.INSTANCE.stopSearch();
-
 ```
 
 #### 设备连接
@@ -237,7 +232,6 @@
 
 ```
     MrkDeviceManger.INSTANCE.create(context, DeviceSearchBean).connect();
-
 ```
     
 
@@ -248,7 +242,6 @@
 
 ```
     MrkDeviceManger.INSTANCE.create(context,mac,productId,bluetoothName,modelId,uniqueModelIdentify).connect();
-
 ```
 
 #### 断开设备连接
@@ -258,7 +251,6 @@
 
 ```
     MrkDeviceManger.INSTANCE.disConnect(mac) 
-
 ```
 
 #### 判断设备是否连接
@@ -268,7 +260,6 @@
 
 ```
     MrkDeviceManger.INSTANCE.isConnect(params) 
-
 ```
 
 #### 清空数据
@@ -278,7 +269,6 @@
 
 ```
     MrkDeviceManger.INSTANCE.clear(Context，mac) 
-
 ```
 
 #### 通过设备大类id 返回对象的设备名称
@@ -288,7 +278,6 @@
 
 ```
     MrkDeviceManger.INSTANCE.getTypeName(productId) 
-
 ```
     
     
@@ -452,14 +441,12 @@ deviceControl.unAutoConnect()
 
 ```
     deviceControl.sendCommandTreadmill(maxNum, adviseNum) 
-
 ```
 
 *   其他控制
     
 
 ```
-
     //当前设备连接
     deviceControl.connect()
     
@@ -488,7 +475,6 @@ deviceControl.unAutoConnect()
     
     //发送跑步机控制指令 速度与坡度（不论是发送速度还是坡度都要使用此方法，请不要使用单独的sendCommandSlope）
     deviceControl.sendCommandTreadmill(speed: Int, slope: Int) 
-    
 ```
 
 
@@ -508,7 +494,6 @@ deviceControl.unAutoConnect()
     enum class BluetoothEnum {
         OPEN, CLOSE, START, STOP, ING
     }
-
 ```
 
 **设备连接状态** `**DeviceConnectEnum**`
@@ -525,7 +510,6 @@ deviceControl.unAutoConnect()
     enum class DeviceConnectEnum {
         ON, OFF, ING, ERROR
     }
-
 ```
 
 **跑步机设备状态**  `**DeviceTreadmillEnum**`
@@ -551,7 +535,6 @@ deviceControl.unAutoConnect()
 
  
 ```
-   @Parcelize
     data class DeviceMangerBean(
         var connectBean: DeviceGoConnectBean,//当前连接的对象
         var deviceOtaBean: DeviceOtaBean? = null,//当前设备的ota对象
@@ -567,7 +550,6 @@ deviceControl.unAutoConnect()
 
   
 ```
-  @Parcelize
     data class DeviceSearchBean(
         val modelId: String = "", //型号id 1630452448293478401
         val originModelId: String = "", //起源型号id(老型号ID) 1630452448293478401
@@ -580,18 +562,10 @@ deviceControl.unAutoConnect()
         val communicationProtocol: Int = 0, //通信协议	1:麦瑞克,2:FTMS,3:智健,4:柏群,5:FTMS+智健
         val isOta: Int = 0, //是否支持ota	 1
         val isMerit: Int = 0, //是否merit设备	 1
-        val uniqueModelIdentify: List<UniqueModelIdentify> = listOf(),//唯一型号确认json
+        val characteristicValue: String="",//唯一型号确认json
         val isTrust: Int = 0,//是否可以信任的数据，0不可信任，1可信任，当数据不可信任时不展示具体信息 1
         var connectEnum: DeviceConnectEnum? //自定义的连接状态
-    ): Parcelable {
-        @Parcelize
-        data class UniqueModelIdentify(
-            var service: String = "",//蓝牙服务
-            var characteristicProperties: String = "",//特征值的属性
-            var characteristicValue: String = "",//特征值的值
-        ) : Parcelable
-    }
-
+    )
 ```
 
 设备详情  `DeviceDetailsBean` 
@@ -685,8 +659,7 @@ data class DeviceTrainBO(
         var type: String = "",//设备类型
         var name: String = "", //蓝牙名称k60,
         var unitDistance: Int = -1,//设备类型0：公制，1：英制
-    )
-    
+    ) 
 ```
 
 
