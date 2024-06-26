@@ -262,9 +262,15 @@
     MrkDeviceManger.INSTANCE.isConnect(params) 
 ```
 
+#### 获取所有已经连接的设备对象
+
+```
+     MrkDeviceManger.INSTANCE.getConnectList()
+```
+
 #### 清空数据
 
-`mac`可传入null或则设备的mac地址，传入null则表示清除掉当前所有的连接设备的数据，传入mac地址，则清除此mac地址设备的数据。
+`mac`可传入null或者设备的mac地址，传入null则表示清除掉当前所有的连接设备的数据，传入mac地址，则清除此mac地址设备的数据。
 
 
 ```
@@ -480,7 +486,7 @@ deviceControl.unAutoConnect()
 
 ## 对象参数说明
 
-**蓝牙状态** `**BluetoothEnum**`
+#### 蓝牙状态 `BluetoothEnum`
 
   
 ```
@@ -496,7 +502,7 @@ deviceControl.unAutoConnect()
     }
 ```
 
-**设备连接状态** `**DeviceConnectEnum**`
+#### 设备连接状态 `DeviceConnectEnum`
 
  
 ```
@@ -512,7 +518,7 @@ deviceControl.unAutoConnect()
     }
 ```
 
-**跑步机设备状态**  `**DeviceTreadmillEnum**`
+#### 跑步机设备状态  `DeviceTreadmillEnum`
 
   
 ```
@@ -531,7 +537,7 @@ deviceControl.unAutoConnect()
 ```
 
 
-整个设备对象  `DeviceMangerBean` 
+#### 整个设备对象  `DeviceMangerBean` 
 
  
 ```
@@ -546,7 +552,7 @@ deviceControl.unAutoConnect()
 ```
 
 
-**搜索对象**  `**DeviceSearchBean**` 
+#### 搜索对象  `DeviceSearchBean` 
 
   
 ```
@@ -568,7 +574,7 @@ deviceControl.unAutoConnect()
     )
 ```
 
-设备详情  `DeviceDetailsBean` 
+#### 设备详情  `DeviceDetailsBean` 
 
    
 ```
@@ -624,7 +630,7 @@ deviceControl.unAutoConnect()
 
     
 
-设备数据回调  `DeviceTrainBO` 
+#### 设备数据回调  `DeviceTrainBO` 
 
     
 ```
@@ -665,6 +671,6 @@ data class DeviceTrainBO(
 
 ## 文件下载
 
-SDK：[https://gitee.com/williamOsChina/mrk-device-demo/blob/main/app/libs/](https://gitee.com/williamOsChina/mrk-device-demo/blob/main/app/libs/)
+#### SDK：[https://gitee.com/williamOsChina/mrk-device-demo/blob/main/app/libs/](https://gitee.com/williamOsChina/mrk-device-demo/blob/main/app/libs/)
 
-Demo：[https://gitee.com/williamOsChina/mrk-device-demo](https://gitee.com/williamOsChina/mrk-device-demo)
+#### Demo：[https://gitee.com/williamOsChina/mrk-device-demo](https://gitee.com/williamOsChina/mrk-device-demo)
