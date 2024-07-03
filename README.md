@@ -674,3 +674,20 @@ data class DeviceTrainBO(
 #### SDK：[https://gitee.com/williamOsChina/mrk-device-demo/blob/main/app/libs/](https://gitee.com/williamOsChina/mrk-device-demo/blob/main/app/libs/)
 
 #### Demo：[https://gitee.com/williamOsChina/mrk-device-demo](https://gitee.com/williamOsChina/mrk-device-demo)
+
+
+
+
+
+## 常见问题
+#### 设备搜索不到。
+* 请确认该设备是否在与麦瑞克合作的范围以内。
+* 请检查必要权限是否授予，检查蓝牙开关是否打开，检查设备是否唤醒且未被他人连接，检查设备是过远。
+
+#### 设备连接不上
+* 请参考【设备搜索不到】的解决方式。
+* 如以上操作还是连接不上，请前往系统蓝牙界面，点击“取消匹配”后，重新搜索连接。
+
+#### 设备中途断开连接
+* 请检查设备电源或者电池是否正常。
+* 部分设备有人在模式，即设备在正常运行中。如设备没有在运行中，即未产生相应的运动数据，根据设备不同会在特定的时间里自动断开。
