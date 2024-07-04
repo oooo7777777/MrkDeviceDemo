@@ -677,7 +677,7 @@ data class DeviceTrainBO(
 
 #### Demo源码：[https://gitee.com/williamOsChina/mrk-device-demo](https://gitee.com/williamOsChina/mrk-device-demo)
 
-#### DemoApk：[https://www.pgyer.com/967QYXBh]
+#### DemoApk：[https://www.pgyer.com/967QYXBh](https://www.pgyer.com/967QYXBh)
 
 
 
