@@ -481,7 +481,7 @@ deviceControl.unAutoConnect()
     //slope 坡度
     deviceControl.sendCommandSlope(slope: Int)
     
-    //发送跑步机控制指令 速度与坡度（不论是发送速度还是坡度都要使用此方法，请不要使用单独的sendCommandSlope）
+    //发送跑步机控制指令速度与坡度（在发送控制指令前，先确定跑步机是否启动，不论是发送速度还是坡度都要使用此方法，请不要使用单独的sendCommandSlope）
     deviceControl.sendCommandTreadmill(speed: Int, slope: Int) 
 ```
 
