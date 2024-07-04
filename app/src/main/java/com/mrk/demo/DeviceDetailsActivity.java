@@ -3,10 +3,13 @@ package com.mrk.demo;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cc.control.bean.DeviceTrainBO;
 import com.cc.control.protocol.DeviceConstants;
@@ -16,16 +19,55 @@ import com.mrk.device.bean.DeviceTreadmillEnum;
 import com.mrk.device.device.DeviceControl;
 import com.mrk.device.device.DeviceListener;
 
+import java.util.HashMap;
+
 /**
  * author  : ww
  * desc    :
- * time    :
+ * time    : 2024/5/28 13:41
  */
 public class DeviceDetailsActivity extends Activity implements View.OnClickListener {
 
-    private Button btConnect, btDisConnect, btStart, btPause, btDataClear, btRegisterNotify, btUnRegisterNotify, btResistance, btSpeed, btSlope;
+    private Button btConnect, btDisConnect, btStart, btPause, btDataClear, btRegisterNotify, btUnRegisterNotify, btResistance, btSpeed, btSlope, btVideoDemo;
     private EditText etResistance, etSpeed, etSlope;
-    private TextView tvContent, tvResistance, tvSpeed, tvSlope;
+    private TextView tvContent, tvResistance, tvSpeed, tvSlope, tvCourseInfo, tvPlayTime, tvGear;
+
+    private ProgressBar progressBar;
+
+    //课程父类合集
+    HashMap parentMap = new HashMap<String, CourseCatalogue>();
+    //课程子类合集
+    HashMap childMap = new HashMap<String, CourseLink>();
+
+    private int progress = 0; // 当前进度
+    private final int maxProgress = 1493; // 最大进度
+    private Handler handler = new Handler();
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            if (progress < maxProgress) {
+                tvPlayTime.setText(progress + "秒");
+                CourseCatalogue parentBean = (CourseCatalogue) parentMap.get(progress);
+                if (parentBean != null) {
+                    tvCourseInfo.setText(parentBean.getName() + "  ");
+                }
+
+                CourseLink childBean = (CourseLink) childMap.get(progress);
+                if (parentBean != null) {
+                    tvCourseInfo.setText(tvCourseInfo.getText().toString() + childBean.getName());
+                    Toast.makeText(DeviceDetailsActivity.this, "阻力调节至:" + childBean.getAdviseNum(), Toast.LENGTH_SHORT).show();
+                    tvGear.setText("消耗Kcal:" + childBean.getKcal() + " 最小踏频:" + childBean.getMinNum() + " 最大踏频:" + childBean.getMaxNum());
+                    deviceControl.sendCommandResistance(childBean.getAdviseNum());
+                }
+
+                progress++;
+                progressBar.setProgress(progress);
+
+            }
+            // 每1000毫秒（1秒）调用一次
+            handler.postDelayed(this, 1000);
+        }
+    };
 
     public static final String PRODUCT_ID = "productId";
 
@@ -109,6 +151,9 @@ public class DeviceDetailsActivity extends Activity implements View.OnClickListe
         tvResistance = (TextView) findViewById(R.id.tvResistance);
         tvSpeed = (TextView) findViewById(R.id.tvSpeed);
         tvSlope = (TextView) findViewById(R.id.tvSlope);
+        tvCourseInfo = (TextView) findViewById(R.id.tvCourseInfo);
+        tvPlayTime = (TextView) findViewById(R.id.tvPlayTime);
+        tvGear = (TextView) findViewById(R.id.tvGear);
 
 
         btConnect = (Button) findViewById(R.id.btConnect);
@@ -132,6 +177,14 @@ public class DeviceDetailsActivity extends Activity implements View.OnClickListe
         btUnRegisterNotify = (Button) findViewById(R.id.btUnRegisterNotify);
         btUnRegisterNotify.setOnClickListener(this);
 
+
+        btVideoDemo = (Button) findViewById(R.id.btVideoDemo);
+        btVideoDemo.setOnClickListener(this);
+
+
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+
+
         btResistance = (Button) findViewById(R.id.btResistance);
         btResistance.setOnClickListener(this);
 
@@ -142,6 +195,12 @@ public class DeviceDetailsActivity extends Activity implements View.OnClickListe
         btSlope.setOnClickListener(this);
 
         productId = getIntent().getStringExtra(PRODUCT_ID);
+
+        if (productId.equals(DeviceConstants.D_BICYCLE)) {
+            //模拟视频教案播放,只提供动感单车的,主要是提供下教案示例,具体逻辑需要自己实现
+            initCourseDetail();
+        }
+
 
         loading = new ProgressDialog(this);
         loading.setTitle("Loading");
@@ -157,7 +216,7 @@ public class DeviceDetailsActivity extends Activity implements View.OnClickListe
             DeviceMangerBean bean = MrkDeviceManger.INSTANCE.getDeviceMangerBean(productId);
             if (bean.getConnectBean() != null) {
 
-                ((TextView) findViewById(R.id.tvConnectInfo)).setText("设备信息\n" + bean.toString());
+                ((TextView) findViewById(R.id.tvConnectInfo)).setText("设备信息\n" + bean.getDeviceDetails());
                 //连接设备是否为跑步机
                 if (bean.getConnectBean().getProductId().equals(DeviceConstants.D_TREADMILL)) {
                     findViewById(R.id.llTreadmill).setVisibility(View.VISIBLE);
@@ -192,6 +251,25 @@ public class DeviceDetailsActivity extends Activity implements View.OnClickListe
         }
         deviceControl.autoConnect();
 
+    }
+
+    private void initCourseDetail() {
+        findViewById(R.id.llVideoDemo).setVisibility(View.VISIBLE);
+        CourseDetailBean courseDetailBean = LoadDataUtils.getCourseDetailBean(this);
+        for (int i = 0; i < courseDetailBean.getCourseCatalogue().size(); i++) {
+            CourseCatalogue parentBean = courseDetailBean.getCourseCatalogue().get(i);
+            parentMap.put(parentBean.getBeginTime(), parentBean);
+
+            for (int j = 0; j < parentBean.getCourseLinks().size(); j++) {
+                CourseLink childBean = parentBean.getCourseLinks().get(j);
+                childMap.put(childBean.getBeginTime(), childBean);
+            }
+        }
+    }
+
+    public void videoDemo() {
+        progressBar.setMax(maxProgress);
+        handler.post(runnable);
     }
 
     @Override
@@ -232,6 +310,14 @@ public class DeviceDetailsActivity extends Activity implements View.OnClickListe
                     deviceControl.sendCommandSlope(Integer.parseInt(etSlope.getText().toString()));
                 }
                 break;
+            case R.id.btVideoDemo:
+                //模拟视频教案播放,只提供动感单车的,主要是提供下教案示例,具体逻辑需要自己实现
+                if (productId.equals(DeviceConstants.D_BICYCLE)) {
+                    videoDemo();
+                } else {
+                    Toast.makeText(this, "模拟视频教案播放,只提供动感单车的,主要是提供下教案示例,具体逻辑需要自己实现", Toast.LENGTH_LONG).show();
+                }
+                break;
         }
     }
 
@@ -245,5 +331,12 @@ public class DeviceDetailsActivity extends Activity implements View.OnClickListe
         super.onResume();
         initDevice();
     }
+
+    @Override
+    protected void onDestroy() {
+        handler.removeCallbacks(runnable);
+        super.onDestroy();
+    }
 }
+
 

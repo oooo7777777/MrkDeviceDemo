@@ -44,13 +44,13 @@
 ```
 
 
-*   在 `app/build.gradle` 文件的 `dependencies` 块中添加SDK依赖。(为了方便联调暂时用SNAPSHOT版本，后续根据情况再提供release版本)
+*   在 `app/build.gradle` 文件的 `dependencies` 块中添加SDK依赖。
     
 
 
 ```
     dependencies {
-          implementation 'com.mrk.device.small:mrkDeviceSmall:0.0.13-SNAPSHOT'
+          implementation 'com.mrk.device.small:mrkDeviceSmall:0.0.14'
     }
 ```
 
