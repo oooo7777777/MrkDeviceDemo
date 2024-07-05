@@ -184,12 +184,14 @@ MrkDeviceManger.INSTANCE.stopSearch();
 - 此方法会自动断开已连接的同类型设备再连接。
 
 **方法1：通过搜索对象连接。**
+
 把搜索到的设备对象`DeviceSearchBean`传入，即可连接设备。
 ```
 MrkDeviceManger.INSTANCE.create(context, DeviceSearchBean).connect();
 ```
 
 **方法2：通过必要参数连接。**
+
 把搜索到的设备对象`DeviceSearchBean`保存`mac`mac地址，`productId`产品Id，`bluetoothName`蓝牙广播名， `modelId`型号id， `uniqueModelIdentify` 设备特征值。通过这些参数去连接。
 ```
 MrkDeviceManger.INSTANCE.create(context,mac,productId,bluetoothName,modelId,uniqueModelIdentify).connect();
