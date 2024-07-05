@@ -281,8 +281,13 @@ deviceControl = MrkDeviceManger.INSTANCE.create(this, DeviceSearchBean)//搜索�
 - 此功能建议在运动模式下开启。
 
 ```
+//开启一次自动重连
 deviceControl.autoConnect()
+
+//开启一直自动重连
+deviceControl.autoConnectAlways()
 ```
+
 **关闭自动重连**
 ```
 deviceControl.unAutoConnect()
