@@ -184,12 +184,14 @@ MrkDeviceManger.INSTANCE.stopSearch();
 - 此方法会自动断开已连接的同类型设备再连接。
 
 **方法1：通过搜索对象连接。**
+
 把搜索到的设备对象`DeviceSearchBean`传入，即可连接设备。
 ```
 MrkDeviceManger.INSTANCE.create(context, DeviceSearchBean).connect();
 ```
 
 **方法2：通过必要参数连接。**
+
 把搜索到的设备对象`DeviceSearchBean`保存`mac`mac地址，`productId`产品Id，`bluetoothName`蓝牙广播名， `modelId`型号id， `uniqueModelIdentify` 设备特征值。通过这些参数去连接。
 ```
 MrkDeviceManger.INSTANCE.create(context,mac,productId,bluetoothName,modelId,uniqueModelIdentify).connect();
@@ -249,10 +251,10 @@ fun getTypeName(productId: String): String {
 ```
 
 
-#### 控制设备
+## 控制设备
+#### 创建控制类
 - 设备连接成功后，即可控制设备。
 - 有多种创建控制类的方式，请根据需求选择。
-
 **1.通过设备大类创建**
 ```
 deviceControl = MrkDeviceManger.INSTANCE.create(this, productId)//设备大类ID，
@@ -275,7 +277,7 @@ deviceControl = MrkDeviceManger.INSTANCE.create(this, DeviceSearchBean)//搜索�
 ```
 
 
-**开启自动重连**
+#### 开启自动重连
 - 特定情况下，设备会断开连接。如长时间未使用设备，电源断开等。
 - 开启此功能后，非人为主动断开即会触发设备重连。
 - 此功能建议在运动模式下开启。
@@ -288,12 +290,12 @@ deviceControl.autoConnect()
 deviceControl.autoConnectAlways()
 ```
 
-**关闭自动重连**
+#### 关闭自动重连
 ```
 deviceControl.unAutoConnect()
 ```
 
-**发送控制指令**
+#### 发送控制指令
 - 控制指令，SDK内部有做设备最大最小指令限制。如设备最大阻力15，下发了16，SDK内部会直接发送设备的最大阻力。坡度，速度亦是如此。
 ```
  //发送设备控制指令 阻力(如果发错了，设备不会响应)
@@ -353,7 +355,7 @@ deviceControl.sendCommandSlope(slopeNum)
 deviceControl.sendCommandTreadmill(maxNum, adviseNum) 
 ```
 
-**其他控制**
+#### 其他控制
 ```
 //当前设备连接
 deviceControl.connect()
@@ -556,23 +558,13 @@ data class DeviceTrainBO(
 
 
 ## 文件下载
-- SDK：[https://gitee.com/williamOsChina/mrk-device-demo/blob/main/app/libs/](https://gitee.com/williamOsChina/mrk-device-demo/blob/main/app/libs/)
-- Demo源码：[https://gitee.com/williamOsChina/mrk-device-demo](https://gitee.com/williamOsChina/mrk-device-demo)
-- DemoApk：[https://www.pgyer.com/967QYXBh](https://www.pgyer.com/967QYXBh)
+#### SDK：[https://gitee.com/williamOsChina/mrk-device-demo/blob/main/app/libs/](https://gitee.com/williamOsChina/mrk-device-demo/blob/main/app/libs/)
+#### Demo源码：[https://gitee.com/williamOsChina/mrk-device-demo](https://gitee.com/williamOsChina/mrk-device-demo)
+#### DemoApk：[https://www.pgyer.com/967QYXBh](https://www.pgyer.com/967QYXBh)
 
 
 
 
 
-## 常见问题
-#### 设备搜索不到。
-1.请确认该设备是否在与麦瑞克合作的范围以内。
-2.请检查必要权限是否授予，检查蓝牙开关是否打开，检查设备是否唤醒且未被他人连接，检查设备是过远。
-
-#### 设备连接不上
-1.请参考【设备搜索不到】的解决方式。
-2.如以上操作还是连接不上，请前往系统蓝牙界面，点击“取消匹配”后，重新搜索连接。
-
-#### 设备中途断开连接
-1.请检查设备电源或者电池是否正常。
-2.部分设备有人在模式，即设备在正常运行中。如设备没有在运行中，即未产生相应的运动数据，根据设备不同会在特定的时间里自动断开。
+## 常见问题 
+#### [Wiki](https://gitee.com/williamOsChina/mrk-device-demo/wikis/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98?sort_id=11220949)
