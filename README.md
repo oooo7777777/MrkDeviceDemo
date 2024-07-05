@@ -250,10 +250,9 @@ fun getTypeName(productId: String): String {
 
 
 ## 控制设备
+#### 创建控制类
 - 设备连接成功后，即可控制设备。
 - 有多种创建控制类的方式，请根据需求选择。
-
-#### 创建控制类
 **1.通过设备大类创建**
 ```
 deviceControl = MrkDeviceManger.INSTANCE.create(this, productId)//设备大类ID，
