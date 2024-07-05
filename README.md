@@ -50,7 +50,7 @@
 
 ```
     dependencies {
-          implementation 'com.mrk.device.small:mrkDeviceSmall:0.0.14'
+          implementation 'com.mrk.device.small:mrkDeviceSmall:0.0.15'
     }
 ```
 
