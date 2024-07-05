@@ -71,6 +71,25 @@
                 android:layout_height="wrap_content"
                 android:text="关闭数据回调" />
 
+            <Button
+                android:id="@+id/btAutoConnect"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="开启一次自动重连" />
+
+            <Button
+                android:id="@+id/btAutoConnectAlways"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="开启一直自动重连" />
+
+
+            <Button
+                android:id="@+id/btAutoConnectClose"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="关闭自动重连" />
+
 
             <LinearLayout
                 android:id="@+id/llVideoDemo"

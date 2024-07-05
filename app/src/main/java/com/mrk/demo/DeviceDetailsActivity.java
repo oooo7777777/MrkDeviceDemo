@@ -21,11 +21,6 @@ import com.mrk.device.device.DeviceListener;
 
 import java.util.HashMap;
 
-/**
- * author  : ww
- * desc    :
- * time    : 2024/5/28 13:41
- */
 public class DeviceDetailsActivity extends Activity implements View.OnClickListener {
 
     private Button btConnect, btDisConnect, btStart, btPause, btDataClear, btRegisterNotify, btUnRegisterNotify, btResistance, btSpeed, btSlope, btVideoDemo;
@@ -194,6 +189,11 @@ public class DeviceDetailsActivity extends Activity implements View.OnClickListe
         btSlope = (Button) findViewById(R.id.btSlope);
         btSlope.setOnClickListener(this);
 
+
+        findViewById(R.id.btAutoConnect).setOnClickListener(this);
+        findViewById(R.id.btAutoConnectAlways).setOnClickListener(this);
+        findViewById(R.id.btAutoConnectClose).setOnClickListener(this);
+
         productId = getIntent().getStringExtra(PRODUCT_ID);
 
         if (productId.equals(DeviceConstants.D_BICYCLE)) {
@@ -249,8 +249,6 @@ public class DeviceDetailsActivity extends Activity implements View.OnClickListe
                     .setOnDeviceListener(deviceListener)
                     .registerDevice();
         }
-        deviceControl.autoConnect();
-
     }
 
     private void initCourseDetail() {
@@ -318,12 +316,24 @@ public class DeviceDetailsActivity extends Activity implements View.OnClickListe
                     Toast.makeText(this, "模拟视频教案播放,只提供动感单车的,主要是提供下教案示例,具体逻辑需要自己实现", Toast.LENGTH_LONG).show();
                 }
                 break;
+
+            case R.id.btAutoConnect:
+                deviceControl.autoConnect();
+                break;
+
+            case R.id.btAutoConnectAlways:
+                deviceControl.autoConnectAlways();
+                break;
+
+            case R.id.btAutoConnectClose:
+                deviceControl.unAutoConnect();
+                break;
+
         }
     }
 
     private void connect() {
         deviceControl.connect();
-        deviceControl.autoConnect();
     }
 
     @Override
@@ -338,5 +348,3 @@ public class DeviceDetailsActivity extends Activity implements View.OnClickListe
         super.onDestroy();
     }
 }
-
-
