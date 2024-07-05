@@ -249,10 +249,11 @@ fun getTypeName(productId: String): String {
 ```
 
 
-#### 控制设备
+## 控制设备
 - 设备连接成功后，即可控制设备。
 - 有多种创建控制类的方式，请根据需求选择。
 
+#### 创建控制类
 **1.通过设备大类创建**
 ```
 deviceControl = MrkDeviceManger.INSTANCE.create(this, productId)//设备大类ID，
@@ -275,7 +276,7 @@ deviceControl = MrkDeviceManger.INSTANCE.create(this, DeviceSearchBean)//搜索�
 ```
 
 
-**开启自动重连**
+#### 开启自动重连
 - 特定情况下，设备会断开连接。如长时间未使用设备，电源断开等。
 - 开启此功能后，非人为主动断开即会触发设备重连。
 - 此功能建议在运动模式下开启。
@@ -288,12 +289,12 @@ deviceControl.autoConnect()
 deviceControl.autoConnectAlways()
 ```
 
-**关闭自动重连**
+#### 关闭自动重连
 ```
 deviceControl.unAutoConnect()
 ```
 
-**发送控制指令**
+#### 发送控制指令
 - 控制指令，SDK内部有做设备最大最小指令限制。如设备最大阻力15，下发了16，SDK内部会直接发送设备的最大阻力。坡度，速度亦是如此。
 ```
  //发送设备控制指令 阻力(如果发错了，设备不会响应)
@@ -353,7 +354,7 @@ deviceControl.sendCommandSlope(slopeNum)
 deviceControl.sendCommandTreadmill(maxNum, adviseNum) 
 ```
 
-**其他控制**
+#### 其他控制
 ```
 //当前设备连接
 deviceControl.connect()
