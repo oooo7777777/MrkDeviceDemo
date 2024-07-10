@@ -375,16 +375,6 @@ deviceControl.clearData()
 //是否开启设备数据回调返回
 deviceControl.setNotifyData(true)
 
-//发送设备控制指令 阻力(如果发错了，设备不会响应)
-//resistance 阻力
-deviceControl.sendCommandResistance(resistance: Int)
-
-//发送设备控制指令 坡度(如果发错了，设备不会响应)
-//slope 坡度
-deviceControl.sendCommandSlope(slope: Int)
-
-//发送跑步机控制指令速度与坡度（在发送控制指令前，先确定跑步机是否启动，不论是发送速度还是坡度都要使用此方法，请不要使用单独的sendCommandSlope）
-deviceControl.sendCommandTreadmill(speed: Int, slope: Int) 
 ```
 
 
