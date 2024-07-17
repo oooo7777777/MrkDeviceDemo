@@ -280,6 +280,12 @@ MrkDeviceManger.INSTANCE.getConnectList()
 MrkDeviceManger.INSTANCE.clear(Context，mac) 
 ```
 
+#### 清除已经匹配的设备信息（去除系统蓝牙所匹配的）
+```
+MrkDeviceManger.INSTANCE.removeBondedDevice(mac)
+```
+
+
 #### 通过设备大类id返回对象的设备名称
 `productId`设备大类id
 ```
