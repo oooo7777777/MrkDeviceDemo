@@ -115,7 +115,7 @@ public class MainActivity extends Activity {
                 ((TextView) findViewById(R.id.tvBluetoothStatus)).setText("蓝牙开关状态:" + bluetoothEnum.name());
 
             }
-        }).registerDeviceListener(this, new DeviceListener() {
+        }).addDeviceListener(this, new DeviceListener() {
             @Override
             public void onConnectStatus(boolean isAutoReconnect, DeviceMangerBean bean) {
                 switch (bean.getConnectEnum()) {
@@ -199,6 +199,7 @@ public class MainActivity extends Activity {
         } else {
             MrkDeviceManger.INSTANCE.create(this, bean).connect();
         }
+
     }
 
     private void toast(String msg) {
