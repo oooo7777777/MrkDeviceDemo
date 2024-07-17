@@ -126,14 +126,39 @@ android:usesPermissionFlags="neverForLocation" />
 MrkDeviceManger.INSTANCE.init(application,isDebug);
 ```
 
-#### 监听所有设备连接状态
+#### 注册一个全局唯一的蓝牙状态监听器（重新注册会覆盖）
 ```
- MrkDeviceManger.INSTANCE.registerBluetoothStateListener(new BluetoothStatusListener() {
+MrkDeviceManger.INSTANCE.registerBluetoothStateListener(new BluetoothStatusListener() {
            @Override
            public void onBluetoothStatus(BluetoothEnum bluetoothEnum) {
                //蓝牙开关状态
            }
-       }).registerDeviceListener(this, new DeviceListener() {
+       });
+
+//释放
+MrkDeviceManger.INSTANCE.unRegisterBluetoothStateListener();
+```
+
+
+#### 添加一个全局的蓝牙状态监听器（可添加多个，注意在不需要的时候请释放掉）
+```
+MrkDeviceManger.INSTANCE.addBluetoothStateListener(new BluetoothStatusListener() {
+           @Override
+           public void onBluetoothStatus(BluetoothEnum bluetoothEnum) {
+               //蓝牙开关状态
+           }
+       });
+
+//释放
+MrkDeviceManger.INSTANCE.removeBluetoothStateListener(BluetoothStatusListener)
+```
+
+
+
+
+#### 注册一个全局唯一的设备监听器（重新注册会覆盖）
+```
+MrkDeviceManger.INSTANCE.registerDeviceListener(this, new DeviceListener() {
            @Override
            public void onConnectStatus(boolean isAutoReconnect, DeviceMangerBean bean) {
                switch (bean.getConnectEnum()) {
@@ -154,6 +179,41 @@ MrkDeviceManger.INSTANCE.init(application,isDebug);
                }
            }
        });
+
+
+//释放
+MrkDeviceManger.INSTANCE.unRegisterDeviceListener();
+```
+
+
+
+#### 添加一个全局的监听器（可添加多个，注意在不需要的时候请释放掉）
+```
+MrkDeviceManger.INSTANCE.addDeviceListener(this, new DeviceListener() {
+           @Override
+           public void onConnectStatus(boolean isAutoReconnect, DeviceMangerBean bean) {
+               switch (bean.getConnectEnum()) {
+                   case ON:
+                       //连接成功
+                       break;
+                   case OFF:
+                       //断开连接
+                       break;
+                   case ING:
+                       //连接中
+                       break;
+                   case ERROR:
+                       //连接失败
+                       break;
+                   default:
+                       break;
+               }
+           }
+       });
+
+
+//释放
+MrkDeviceManger.INSTANCE.removeDeviceListener(Context,DeviceListener);
 ```
 
 
