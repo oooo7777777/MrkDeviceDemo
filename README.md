@@ -46,7 +46,7 @@ dependencies {
 
 #### 手动集成
 
-*   [下载此sdk](https://gitee.com/williamOsChina/mrk-device-demo/blob/main/app/libs/)，在Android Studio的项目工程libs目录中拷入相关组件aar包，右键Android Studio的项目工程 —> 选择Open Module Settings —> 在 Project Structure弹出框中 —> 选择 Dependencies选项卡 —> 点击左下方“＋” —> 选择组件包类型 —> 引入相应的包。
+*   [下载此sdk](app%2Flibs)，在Android Studio的项目工程libs目录中拷入相关组件aar包，右键Android Studio的项目工程 —> 选择Open Module Settings —> 在 Project Structure弹出框中 —> 选择 Dependencies选项卡 —> 点击左下方“＋” —> 选择组件包类型 —> 引入相应的包。
     
 ```
 repositories{
@@ -614,9 +614,9 @@ data class DeviceTrainBO(
 
 
 ## 文件下载
-#### SDK：[https://gitee.com/williamOsChina/mrk-device-demo/blob/main/app/libs/](https://gitee.com/williamOsChina/mrk-device-demo/blob/main/app/libs/)
-#### Demo源码：[https://gitee.com/williamOsChina/mrk-device-demo](https://gitee.com/williamOsChina/mrk-device-demo)
-#### DemoApk：[https://www.pgyer.com/967QYXBh](https://www.pgyer.com/967QYXBh)
+#### [SDK](app%2Flibs)
+#### [Demo源码](https://gitee.com/williamOsChina/mrk-device-demo)
+#### [Apk下载](https://www.pgyer.com/967QYXBh)
 
 
 
@@ -624,3 +624,7 @@ data class DeviceTrainBO(
 
 ## 常见问题 
 #### [Wiki](https://gitee.com/williamOsChina/mrk-device-demo/wikis/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98?sort_id=11220949)
+
+
+## 版本更新记录
+#### [版本更新记录](https://gitee.com/williamOsChina/mrk-device-demo/wikis/%E7%89%88%E6%9C%AC%E6%9B%B4%E6%96%B0%E8%AE%B0%E5%BD%95/)
