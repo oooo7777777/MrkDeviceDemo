@@ -1,5 +1,6 @@
 package com.mrk.demo;
 
+
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -7,7 +8,6 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -45,7 +45,6 @@ public class MainActivity extends Activity {
 
         initView();
         registerDeviceListener();
-
     }
 
 
@@ -82,6 +81,18 @@ public class MainActivity extends Activity {
             }
         });
 
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                DeviceSearchBean item = adapter.getData().get(position);
+                MrkDeviceManger.INSTANCE.removeBondedDevice(item.getMac());
+                adapter.getData().remove(item);
+                adapter.notifyDataSetChanged();
+                toast("设备配对信息清空");
+                return false;
+            }
+        });
+
         findViewById(R.id.tvSearch).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -102,6 +113,24 @@ public class MainActivity extends Activity {
                 MrkDeviceManger.INSTANCE.stopSearch();
             }
         });
+        findViewById(R.id.tvDemo).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(
+                        MainActivity.this,
+                        DeviceDetailsActivity.class
+                );
+                //根据可以连接的设备,自己更改对应的参数
+                Bundle bundle = new Bundle();
+                bundle.putString(DeviceDetailsActivity.MAC, "24:00:0C:A0:DE:33");
+                bundle.putString(DeviceDetailsActivity.PRODUCT_ID, "2");
+                bundle.putString(DeviceDetailsActivity.BLUETOOTH_NAME, "MRK-T07-D34F");
+                bundle.putString(DeviceDetailsActivity.MODEL_ID, "1744599596504129561");
+                bundle.putString(DeviceDetailsActivity.CHARACTERISTIC_VALUE, "");
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
     }
 
     /**
@@ -115,7 +144,7 @@ public class MainActivity extends Activity {
                 ((TextView) findViewById(R.id.tvBluetoothStatus)).setText("蓝牙开关状态:" + bluetoothEnum.name());
 
             }
-        }).addDeviceListener(this, new DeviceListener() {
+        }).registerDeviceListener(this, new DeviceListener() {
             @Override
             public void onConnectStatus(boolean isAutoReconnect, DeviceMangerBean bean) {
                 switch (bean.getConnectEnum()) {
@@ -199,11 +228,9 @@ public class MainActivity extends Activity {
         } else {
             MrkDeviceManger.INSTANCE.create(this, bean).connect();
         }
-
     }
 
     private void toast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 }
-

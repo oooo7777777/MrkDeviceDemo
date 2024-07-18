@@ -1,9 +1,11 @@
 package com.mrk.demo;
 
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,7 +23,21 @@ import com.mrk.device.device.DeviceListener;
 
 import java.util.HashMap;
 
+/**
+ * author  : ww
+ * desc    :
+ * time    : 2024/5/28 13:41
+ */
 public class DeviceDetailsActivity extends Activity implements View.OnClickListener {
+
+    public static final String PRODUCT_ID = "productId";
+    public static final String MAC = "mac";
+    public static final String BLUETOOTH_NAME = "bluetoothName";
+    public static final String MODEL_ID = "modelId";
+    public static final String CHARACTERISTIC_VALUE = "characteristicValue";
+
+    private String productId, mac, bluetoothName, modelId, characteristicValue;
+
 
     private Button btConnect, btDisConnect, btStart, btPause, btDataClear, btRegisterNotify, btUnRegisterNotify, btResistance, btSpeed, btSlope, btVideoDemo;
     private EditText etResistance, etSpeed, etSlope;
@@ -64,11 +80,9 @@ public class DeviceDetailsActivity extends Activity implements View.OnClickListe
         }
     };
 
-    public static final String PRODUCT_ID = "productId";
 
     private ProgressDialog loading;
 
-    private String productId;
 
     private DeviceControl deviceControl;
 
@@ -81,6 +95,7 @@ public class DeviceDetailsActivity extends Activity implements View.OnClickListe
             switch (bean.getConnectEnum()) {
                 case ON:
                     loading.dismiss();
+                    initDevice();
                     break;
                 case OFF:
                     loading.dismiss();
@@ -194,61 +209,71 @@ public class DeviceDetailsActivity extends Activity implements View.OnClickListe
         findViewById(R.id.btAutoConnectAlways).setOnClickListener(this);
         findViewById(R.id.btAutoConnectClose).setOnClickListener(this);
 
+        loading = new ProgressDialog(this);
+        loading.setTitle("Loading");
+        loading.setMessage("Please wait...");
+
         productId = getIntent().getStringExtra(PRODUCT_ID);
+        mac = getIntent().getStringExtra(MAC);
+        bluetoothName = getIntent().getStringExtra(BLUETOOTH_NAME);
+        modelId = getIntent().getStringExtra(MODEL_ID);
+        characteristicValue = getIntent().getStringExtra(CHARACTERISTIC_VALUE);
 
         if (productId.equals(DeviceConstants.D_BICYCLE)) {
             //模拟视频教案播放,只提供动感单车的,主要是提供下教案示例,具体逻辑需要自己实现
             initCourseDetail();
         }
 
-
-        loading = new ProgressDialog(this);
-        loading.setTitle("Loading");
-        loading.setMessage("Please wait...");
-
-        initDevice();
-    }
-
-    private void initDevice() {
-        if (deviceControl == null) {
-
-            ((TextView) findViewById(R.id.tvConnectStatus)).setText("连接状态\n" + MrkDeviceManger.INSTANCE.getTypeName(productId) + " 连接状态:" + MrkDeviceManger.INSTANCE.getDeviceStatus(productId));
-            DeviceMangerBean bean = MrkDeviceManger.INSTANCE.getDeviceMangerBean(productId);
-            if (bean.getConnectBean() != null) {
-
-                ((TextView) findViewById(R.id.tvConnectInfo)).setText("设备信息\n" + bean.getDeviceDetails());
-                //连接设备是否为跑步机
-                if (bean.getConnectBean().getProductId().equals(DeviceConstants.D_TREADMILL)) {
-                    findViewById(R.id.llTreadmill).setVisibility(View.VISIBLE);
-
-                }
-            }
-
-            if (bean.getDeviceDetails() != null) {
-                //是否支持设置坡度
-                if (bean.getDeviceDetails().getProductModelTsl().getControlSlope() == 1) {
-                    findViewById(R.id.llSlope).setVisibility(View.VISIBLE);
-                } else {
-                    findViewById(R.id.llSlope).setVisibility(View.GONE);
-                }
-                //是否支持阻力
-                if (bean.getDeviceDetails().getProductModelTsl().getControlResistance() == 1) {
-                    findViewById(R.id.llResistance).setVisibility(View.VISIBLE);
-                } else {
-                    findViewById(R.id.llResistance).setVisibility(View.GONE);
-                }
-
-                //是否支持设备清零
-                if (bean.getDeviceDetails().getProductModelTsl().isClean() == 1) {
-                    findViewById(R.id.btDataClear).setVisibility(View.VISIBLE);
-                } else {
-                    findViewById(R.id.btDataClear).setVisibility(View.GONE);
-                }
-            }
+        if (MrkDeviceManger.INSTANCE.isConnect(productId)) {
             deviceControl = MrkDeviceManger.INSTANCE.create(this, productId)
                     .setOnDeviceListener(deviceListener)
                     .registerDevice();
+        } else {
+            deviceControl = MrkDeviceManger.INSTANCE.create(this, mac, productId, bluetoothName, modelId, characteristicValue)
+                    .setOnDeviceListener(deviceListener)
+                    .registerDevice();
         }
+    }
+
+    private void initDevice() {
+
+        ((TextView) findViewById(R.id.tvConnectStatus)).setText("连接状态\n" + MrkDeviceManger.INSTANCE.getTypeName(productId) + " 连接状态:" + MrkDeviceManger.INSTANCE.getDeviceStatus(productId));
+        DeviceMangerBean bean = MrkDeviceManger.INSTANCE.getDeviceMangerBean(productId);
+
+        if (bean == null)
+            return;
+
+        ((TextView) findViewById(R.id.tvConnectInfo)).setText("设备信息\n" + bean.getDeviceDetails());
+        //连接设备是否为跑步机
+        if (bean.getConnectBean().getProductId().equals(DeviceConstants.D_TREADMILL)) {
+            findViewById(R.id.llTreadmill).setVisibility(View.VISIBLE);
+
+        }
+
+
+        if (bean.getDeviceDetails() != null) {
+            //是否支持设置坡度
+            if (bean.getDeviceDetails().getProductModelTsl().getControlSlope() == 1) {
+                findViewById(R.id.llSlope).setVisibility(View.VISIBLE);
+            } else {
+                findViewById(R.id.llSlope).setVisibility(View.GONE);
+            }
+            //是否支持阻力
+            if (bean.getDeviceDetails().getProductModelTsl().getControlResistance() == 1) {
+                findViewById(R.id.llResistance).setVisibility(View.VISIBLE);
+            } else {
+                findViewById(R.id.llResistance).setVisibility(View.GONE);
+            }
+
+            //是否支持设备清零
+            if (bean.getDeviceDetails().getProductModelTsl().isClean() == 1) {
+                findViewById(R.id.btDataClear).setVisibility(View.VISIBLE);
+            } else {
+                findViewById(R.id.btDataClear).setVisibility(View.GONE);
+            }
+        }
+
+
     }
 
     private void initCourseDetail() {
@@ -334,17 +359,21 @@ public class DeviceDetailsActivity extends Activity implements View.OnClickListe
 
     private void connect() {
         deviceControl.connect();
+//        deviceControl.autoConnect();
+        deviceControl.autoConnectAlways();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         initDevice();
+
     }
 
     @Override
     protected void onDestroy() {
         handler.removeCallbacks(runnable);
+        deviceControl.clear();
         super.onDestroy();
     }
 }
