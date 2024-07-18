@@ -226,12 +226,10 @@ public class DeviceDetailsActivity extends Activity implements View.OnClickListe
 
         if (MrkDeviceManger.INSTANCE.isConnect(productId)) {
             deviceControl = MrkDeviceManger.INSTANCE.create(this, productId)
-                    .setOnDeviceListener(deviceListener)
-                    .registerDevice();
+                    .setOnDeviceListener(deviceListener);
         } else {
             deviceControl = MrkDeviceManger.INSTANCE.create(this, mac, productId, bluetoothName, modelId, characteristicValue)
-                    .setOnDeviceListener(deviceListener)
-                    .registerDevice();
+                    .setOnDeviceListener(deviceListener);
         }
     }
 
