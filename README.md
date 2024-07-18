@@ -624,3 +624,7 @@ data class DeviceTrainBO(
 
 ## 常见问题 
 #### [Wiki](https://gitee.com/williamOsChina/mrk-device-demo/wikis/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98?sort_id=11220949)
+
+
+## 版本更新记录
+#### [版本更新记录](https://gitee.com/williamOsChina/mrk-device-demo/wikis/%E7%89%88%E6%9C%AC%E6%9B%B4%E6%96%B0%E8%AE%B0%E5%BD%95/)
