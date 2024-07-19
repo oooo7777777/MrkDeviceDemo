@@ -339,7 +339,6 @@ deviceControl = MrkDeviceManger.INSTANCE.create(this, mac)//设备mac地址
 ```
 deviceControl = MrkDeviceManger.INSTANCE.create(this, DeviceSearchBean)//搜索对象
   .setOnDeviceListener(deviceListener)//设置设备状态监听
-  .registerDevice();//注册设备状态
 ```
 
 
