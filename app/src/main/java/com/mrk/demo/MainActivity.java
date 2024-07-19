@@ -137,7 +137,6 @@ public class MainActivity extends Activity {
      * 监听所有设备连接的对象
      */
     private void registerDeviceListener() {
-
         MrkDeviceManger.INSTANCE.registerBluetoothStateListener(new BluetoothStatusListener() {
             @Override
             public void onBluetoothStatus(BluetoothEnum bluetoothEnum) {

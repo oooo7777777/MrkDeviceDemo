@@ -225,10 +225,10 @@ public class DeviceDetailsActivity extends Activity implements View.OnClickListe
         }
 
         if (MrkDeviceManger.INSTANCE.isConnect(productId)) {
-            deviceControl = MrkDeviceManger.INSTANCE.create(this, productId)
+            deviceControl = MrkDeviceManger.INSTANCE.getDeviceControl(this, productId)
                     .setOnDeviceListener(deviceListener);
         } else {
-            deviceControl = MrkDeviceManger.INSTANCE.create(this, mac, productId, bluetoothName, modelId, characteristicValue)
+            deviceControl = MrkDeviceManger.INSTANCE.getDeviceControl(this, mac, productId, bluetoothName, modelId, characteristicValue)
                     .setOnDeviceListener(deviceListener);
         }
     }
@@ -245,9 +245,7 @@ public class DeviceDetailsActivity extends Activity implements View.OnClickListe
         //连接设备是否为跑步机
         if (bean.getConnectBean().getProductId().equals(DeviceConstants.D_TREADMILL)) {
             findViewById(R.id.llTreadmill).setVisibility(View.VISIBLE);
-
         }
-
 
         if (bean.getDeviceDetails() != null) {
             //是否支持设置坡度
@@ -323,6 +321,7 @@ public class DeviceDetailsActivity extends Activity implements View.OnClickListe
             case R.id.btSpeed:
                 //跑步机只能发送组合指令,即不论发送坡度还是速度,都需要一起
                 deviceControl.sendCommandTreadmill(Integer.parseInt(etSpeed.getText().toString()), Integer.parseInt(etSlope.getText().toString()));
+                break;
             case R.id.btSlope:
                 if (deviceControl.getDeviceMangerBean().getConnectBean().getProductId().equals(DeviceConstants.D_TREADMILL)) {
                     //跑步机只能发送组合指令,即不论发送坡度还是速度,都需要一起
