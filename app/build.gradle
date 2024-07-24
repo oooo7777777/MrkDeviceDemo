@@ -33,17 +33,17 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:3.7.0'
 
     //maven集成
-    implementation 'com.mrk.device.small:mrkDeviceSmall:0.0.24'
+//    implementation 'com.mrk.device.small:mrkDeviceSmall:0.0.25'
 
 
     //手动集成
-//    implementation (name:'MrkDevice_0.0.24', ext:'aar')
-//    implementation 'com.android.support:appcompat-v7:23.1.0'
-//    implementation "org.jetbrains.kotlin:kotlin-reflect:1.3.21"
-//    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.3.21"
-//    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.0"
-//    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.0"
-//    implementation 'com.alibaba:fastjson:1.2.83'
+    implementation (name:'MrkDevice_0.0.25', ext:'aar')
+    implementation 'com.android.support:appcompat-v7:23.1.0'
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.3.21"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.3.21"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.0"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.0"
+    implementation 'com.alibaba:fastjson:1.2.83'
 
 
 }

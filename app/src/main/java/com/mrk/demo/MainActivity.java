@@ -77,6 +77,8 @@ public class MainActivity extends Activity {
                     bundle.putString(DeviceDetailsActivity.PRODUCT_ID, item.getProductId());
                     intent.putExtras(bundle);
                     startActivity(intent);
+                } else {
+                    deviceConnect(item);
                 }
             }
         });
