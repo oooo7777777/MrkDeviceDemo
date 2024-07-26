@@ -216,6 +216,10 @@ MrkDeviceManger.INSTANCE.addDeviceListener(this, new DeviceListener() {
 MrkDeviceManger.INSTANCE.removeDeviceListener(Context,DeviceListener);
 ```
 
+#### 判断蓝牙是否开启
+```
+MrkDeviceManger.INSTANCE.isBluetoothOpened()
+```
 
 #### 开始设备搜索
 - 设备开始搜索，会回调搜索开始`BluetoothEnum.START`。 
