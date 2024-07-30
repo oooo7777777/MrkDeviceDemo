@@ -26,11 +26,9 @@ public class SearchDeviceAdapter extends BaseAdapter {
     private Context context;
     private List<DeviceSearchBean> dataList = new ArrayList<>();
 
-    private ConnectClickListener connectClickListener;
 
-    public SearchDeviceAdapter(Context context, ConnectClickListener connectClickListener) {
+    public SearchDeviceAdapter(Context context) {
         this.context = context;
-        this.connectClickListener = connectClickListener;
     }
 
     public List<DeviceSearchBean> getData() {
@@ -72,12 +70,7 @@ public class SearchDeviceAdapter extends BaseAdapter {
         tvBluetoothName.setText(bean.getBluetoothName());
         tvMac.setText(bean.getMac());
         Glide.with(context).load(bean.getCover()).into(ivCover);
-        tvConnect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                connectClickListener.onClick(bean);
-            }
-        });
+
 
         switch (bean.getConnectEnum()) {
             case ON:

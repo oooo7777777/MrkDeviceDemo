@@ -32,6 +32,7 @@ import java.util.List;
 
 public class MainActivity extends Activity {
 
+    private TextView tvOpen;
     private ListView listView;
     private SearchDeviceAdapter adapter;
 
@@ -43,8 +44,11 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         initView();
         registerDeviceListener();
+
+//        FitnessDeviceManager.getInstance();
     }
 
 
@@ -53,15 +57,12 @@ public class MainActivity extends Activity {
         loading.setTitle("Loading");
         loading.setMessage("Please wait...");
 
+        tvOpen = (TextView) findViewById(R.id.tvOpen);
+
         listView = (ListView) findViewById(R.id.listView);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
-        adapter = new SearchDeviceAdapter(this, new ConnectClickListener() {
-            @Override
-            public void onClick(DeviceSearchBean bean) {
-                deviceConnect(bean);
-            }
-        });
+        adapter = new SearchDeviceAdapter(this);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -109,6 +110,20 @@ public class MainActivity extends Activity {
             }
         });
 
+        ((TextView) findViewById(R.id.tvBluetoothStatus)).setText("蓝牙开关状态:" + (MrkDeviceManger.INSTANCE.getBluetoothStatus() ? "开启" : "关闭"));
+        tvOpen.setText(MrkDeviceManger.INSTANCE.getBluetoothStatus() ? "关闭蓝牙" : "开启蓝牙");
+        tvOpen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (MrkDeviceManger.INSTANCE.getBluetoothStatus()) {
+                    MrkDeviceManger.INSTANCE.closeBluetooth(MainActivity.this);
+                } else {
+                    MrkDeviceManger.INSTANCE.openBluetooth(MainActivity.this);
+                }
+            }
+        });
+
+
         findViewById(R.id.tvSearchStop).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -122,12 +137,13 @@ public class MainActivity extends Activity {
                         MainActivity.this,
                         DeviceDetailsActivity.class
                 );
+
                 //根据可以连接的设备,自己更改对应的参数
                 Bundle bundle = new Bundle();
-                bundle.putString(DeviceDetailsActivity.MAC, "24:00:0C:A0:DE:33");
-                bundle.putString(DeviceDetailsActivity.PRODUCT_ID, "2");
-                bundle.putString(DeviceDetailsActivity.BLUETOOTH_NAME, "MRK-T07-D34F");
-                bundle.putString(DeviceDetailsActivity.MODEL_ID, "1744599596504129561");
+                bundle.putString(DeviceDetailsActivity.MAC, "57:4C:54:6D:24:8C");
+                bundle.putString(DeviceDetailsActivity.PRODUCT_ID, "1");
+                bundle.putString(DeviceDetailsActivity.BLUETOOTH_NAME, "MRK-S16-248C");
+                bundle.putString(DeviceDetailsActivity.MODEL_ID, "1744599596504129559");
                 bundle.putString(DeviceDetailsActivity.CHARACTERISTIC_VALUE, "");
                 intent.putExtras(bundle);
                 startActivity(intent);
@@ -143,6 +159,17 @@ public class MainActivity extends Activity {
             @Override
             public void onBluetoothStatus(BluetoothEnum bluetoothEnum) {
                 ((TextView) findViewById(R.id.tvBluetoothStatus)).setText("蓝牙开关状态:" + bluetoothEnum.name());
+
+                if (bluetoothEnum == BluetoothEnum.OPEN) {
+                    tvOpen.setText("关闭蓝牙");
+                    // 创建一个Intent，用于触发重启蓝牙服务的广播
+                    Intent bluetoothIntent = new Intent("com.android.bluetooth.btservice.action.RESTART");
+// 发送广播
+                    sendBroadcast(bluetoothIntent);
+                } else {
+                    tvOpen.setText("开启蓝牙");
+                }
+
 
             }
         }).registerDeviceListener(this, new DeviceListener() {
