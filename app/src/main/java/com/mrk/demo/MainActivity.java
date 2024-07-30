@@ -162,10 +162,6 @@ public class MainActivity extends Activity {
 
                 if (bluetoothEnum == BluetoothEnum.OPEN) {
                     tvOpen.setText("关闭蓝牙");
-                    // 创建一个Intent，用于触发重启蓝牙服务的广播
-                    Intent bluetoothIntent = new Intent("com.android.bluetooth.btservice.action.RESTART");
-// 发送广播
-                    sendBroadcast(bluetoothIntent);
                 } else {
                     tvOpen.setText("开启蓝牙");
                 }
