@@ -295,7 +295,7 @@ public class DeviceDetailsActivity extends Activity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btConnect:
-                connect();
+                deviceControl.connect();
                 break;
             case R.id.btDisConnect:
                 deviceControl.disConnect();
@@ -354,11 +354,6 @@ public class DeviceDetailsActivity extends Activity implements View.OnClickListe
         }
     }
 
-    private void connect() {
-        deviceControl.connect();
-//        deviceControl.autoConnect();
-        deviceControl.autoConnectAlways();
-    }
 
     @Override
     protected void onResume() {

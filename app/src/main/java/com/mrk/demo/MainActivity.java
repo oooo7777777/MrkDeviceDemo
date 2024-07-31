@@ -162,6 +162,7 @@ public class MainActivity extends Activity {
 
                 if (bluetoothEnum == BluetoothEnum.OPEN) {
                     tvOpen.setText("关闭蓝牙");
+
                 } else {
                     tvOpen.setText("开启蓝牙");
                 }
