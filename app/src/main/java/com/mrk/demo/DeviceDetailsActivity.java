@@ -1,6 +1,5 @@
 package com.mrk.demo;
 
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -89,7 +88,7 @@ public class DeviceDetailsActivity extends Activity implements View.OnClickListe
     private final DeviceListener deviceListener = new DeviceListener() {
         @Override
         public void onConnectStatus(boolean isAutoReconnect, DeviceMangerBean bean) {
-            ((TextView) findViewById(R.id.tvConnectStatus)).setText("连接状态\n" + MrkDeviceManger.INSTANCE.getTypeName(productId) + " 连接状态:" + bean.getConnectEnum());
+            ((TextView) findViewById(R.id.tvConnectStatus)).setText( MrkDeviceManger.INSTANCE.getTypeName(productId) + " 连接状态:" + bean.getConnectEnum());
 
 
             switch (bean.getConnectEnum()) {
@@ -235,7 +234,7 @@ public class DeviceDetailsActivity extends Activity implements View.OnClickListe
 
     private void initDevice() {
 
-        ((TextView) findViewById(R.id.tvConnectStatus)).setText("连接状态\n" + MrkDeviceManger.INSTANCE.getTypeName(productId) + " 连接状态:" + MrkDeviceManger.INSTANCE.getDeviceStatus(productId));
+        ((TextView) findViewById(R.id.tvConnectStatus)).setText(MrkDeviceManger.INSTANCE.getTypeName(productId) + " 连接状态:" + MrkDeviceManger.INSTANCE.getDeviceStatus(productId));
         DeviceMangerBean bean = MrkDeviceManger.INSTANCE.getDeviceMangerBean(productId);
 
         if (bean == null)

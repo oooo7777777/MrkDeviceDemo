@@ -39,7 +39,7 @@
 *   在`app/build.gradle`文件的`dependencies`块中添加SDK依赖。
 ```
 dependencies {
-      implementation 'com.mrk.device.small:mrkDeviceSmall:0.0.30'
+      implementation 'com.mrk.device.small:mrkDeviceSmall:0.0.31'
 }
 ```
 

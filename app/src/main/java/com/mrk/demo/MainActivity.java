@@ -1,6 +1,5 @@
 package com.mrk.demo;
 
-
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -27,9 +26,6 @@ import com.mrk.device.listener.BluetoothSearchListener;
 import com.mrk.device.listener.BluetoothStatusListener;
 import com.mrk.device.listener.DeviceDisConnectListener;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class MainActivity extends Activity {
 
     private TextView tvOpen;
@@ -44,10 +40,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         initView();
         registerDeviceListener();
-
 //        FitnessDeviceManager.getInstance();
     }
 
@@ -56,6 +50,7 @@ public class MainActivity extends Activity {
         loading = new ProgressDialog(this);
         loading.setTitle("Loading");
         loading.setMessage("Please wait...");
+        loading.setCancelable(false);
 
         tvOpen = (TextView) findViewById(R.id.tvOpen);
 
@@ -251,7 +246,7 @@ public class MainActivity extends Activity {
             });
             builder.create().show();
         } else {
-            MrkDeviceManger.INSTANCE.create(this, bean).connect();
+            MrkDeviceManger.INSTANCE.create(this, bean).autoConnectAlways().connect();
         }
     }
 
