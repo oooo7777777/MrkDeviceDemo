@@ -221,10 +221,10 @@ MrkDeviceManger.INSTANCE.removeDeviceListener(Context,DeviceListener);
 MrkDeviceManger.INSTANCE.isBluetoothOpened()
 ```
 
-#### 开始设备搜索
+#### 设备搜索
 - 设备开始搜索，会回调搜索开始`BluetoothEnum.START`。 
 - 设备搜索中，会回调搜索中`BluetoothEnum.ING`。 
-- 搜索超时时间为10秒，10秒以后会回调搜索结束`BluetoothEnum.STOP` 调用搜索结束或点击连接设备也会回调。
+- 搜索会持续15秒，15秒以后会回调搜索结束`BluetoothEnum.STOP` 调用搜索结束或点击连接设备也会回调。
 ```
 MrkDeviceManger.INSTANCE.startSearch(this, new BluetoothSearchListener() {
             @Override
@@ -237,7 +237,7 @@ MrkDeviceManger.INSTANCE.startSearch(this, new BluetoothSearchListener() {
             }
         });
 ```
-#### 停止设备搜索
+#### 停止搜索
 SDK内部会在设备连接的时候也会同步调用此方法。
 ```
 MrkDeviceManger.INSTANCE.stopSearch();
@@ -251,7 +251,7 @@ MrkDeviceManger.INSTANCE.stopSearch();
 
 把搜索到的设备对象`DeviceSearchBean`传入，即可连接设备。
 ```
-MrkDeviceManger.INSTANCE.create(context, DeviceSearchBean).connect();
+MrkDeviceManger.INSTANCE.create(context,mac,productId,bluetoothName,modelId,uniqueModelIdentify).connect();
 ```
 
 **方法2：通过必要参数连接。**
@@ -284,7 +284,7 @@ MrkDeviceManger.INSTANCE.getConnectList()
 MrkDeviceManger.INSTANCE.clear(Context，mac) 
 ```
 
-#### 清除已经匹配的设备信息（去除系统蓝牙所匹配的）
+#### 清除已经匹配的设备信息（去除系统蓝牙所匹配的数据）
 ```
 MrkDeviceManger.INSTANCE.removeBondedDevice(mac)
 ```
@@ -325,21 +325,15 @@ fun getTypeName(productId: String): String {
 #### 创建控制类
 - 设备连接成功后，即可控制设备。
 - 有多种创建控制类的方式，请根据需求选择。
-**1.通过设备大类创建**
+
+**1.通过必要参数创建**
+把搜索到的设备对象`DeviceSearchBean`保存`mac`mac地址，`productId`产品Id，`bluetoothName`蓝牙广播名， `modelId`型号id， `uniqueModelIdentify` 设备特征值。通过这些参数去连接。
 ```
-deviceControl = MrkDeviceManger.INSTANCE.create(this, productId)//设备大类ID，
+deviceControl = MrkDeviceManger.INSTANCE.create(context,mac,productId,bluetoothName,modelId,uniqueModelIdentify)
   .setOnDeviceListener(deviceListener)//设置设备状态监听
-  .registerDevice();//注册设备状态
 ```
 
-**2.通过设备的mac地址创建**
-```
-deviceControl = MrkDeviceManger.INSTANCE.create(this, mac)//设备mac地址
-  .setOnDeviceListener(deviceListener)//设置设备状态监听
-  .registerDevice();//注册设备状态
-```
-
-**3.通过搜索对象创建**
+**2.通过搜索对象创建**
 ```
 deviceControl = MrkDeviceManger.INSTANCE.create(this, DeviceSearchBean)//搜索对象
   .setOnDeviceListener(deviceListener)//设置设备状态监听
@@ -438,6 +432,9 @@ deviceControl.deviceStart()
 //设备暂停(只有跑步机可用)
 deviceControl.devicePause()
 
+//设备停止(只有跑步机可用,会清除当前的运动数据)
+deviceControl.deviceStop();
+
 //设备数据清除
 deviceControl.clearData()
 
@@ -448,6 +445,7 @@ deviceControl.setNotifyData(true)
 
 
 ## 对象参数说明
+- 用不上的可以直接无视
 #### 蓝牙状态`BluetoothEnum`
 ```
  /**
@@ -496,12 +494,12 @@ enum class DeviceTreadmillEnum {
 #### 整个设备对象  `DeviceMangerBean` 
 ```
 data class DeviceMangerBean(
-    var connectBean: DeviceGoConnectBean,//当前连接的对象
+     var connectBean: DeviceGoConnectBean,//当前连接的对象
     var deviceOtaBean: DeviceOtaBean? = null,//当前设备的ota对象
     var deviceDetails: DeviceDetailsBean? = null,//当前设备的设备详情(需要先连接)
     var connectEnum: DeviceConnectEnum = DeviceConnectEnum.OFF, //当前设备的连接状态
-    var deviceFunction: BaseDeviceFunction? = null,//当前设备的设备控制类
-    var unitDistance: Int = -1//设备单位：1-公制，2-英制	 1
+    var deviceControl: DeviceControl? = null,//当前设备的设备控制类
+    var autoReconnectEnum: AutoReconnectEnum = AutoReconnectEnum.DEFAULT//重连枚举
 )
 ```
 
@@ -572,8 +570,7 @@ data class DeviceDetailsBean(
          val guide: String = "",//引导信息
          val electrode: Int = 0, //电极信息	 0
          val unitVal: Int = 0, //设备单位：1-公制，2-英制	 1
-         val isSupportSlopeEcho: Int = 0, //是否支持坡度回显：0-否，1-是	 0
-         val torqueMap: HashMap<String, Double> = HashMap()//扭矩
+         val isSupportSlopeEcho: Int = 0 //是否支持坡度回显：0-否，1-是	 0
      )
 }
 ```
@@ -582,7 +579,7 @@ data class DeviceDetailsBean(
 #### 设备数据回调  `DeviceTrainBO` 
 ```
 data class DeviceTrainBO(
- var dataType: Int = 0, //智健协议 车表类协议区分是 瞬时数据/累计数据  默认为0都包含  1；瞬时数据：2； 累计数据 3 辅助通道
+ var dataType: Int = 0, //
  var linkId: Long = 0, //小节ID
  var speed: Float = 0f, //速度
  var avgSpeed: Float = 0f, //平均速度
@@ -612,6 +609,7 @@ data class DeviceTrainBO(
  var type: String = "",//设备类型
  var name: String = "", //蓝牙名称k60,
  var unitDistance: Int = -1,//设备类型0：公制，1：英制
+ var treadmillModel: Int = -1//跑步机模式 1：手动模式 2：内置程式 3：模式（倒计时/倒计数/倒计卡路⾥）
 ) 
 ```
 

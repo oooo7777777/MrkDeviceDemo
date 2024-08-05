@@ -264,6 +264,11 @@
                     android:layout_height="wrap_content"
                     android:text="暂停设备" />
 
+                <Button
+                    android:id="@+id/btStop"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="暂停停止" />
 
                 <LinearLayout
                     android:layout_width="match_parent"

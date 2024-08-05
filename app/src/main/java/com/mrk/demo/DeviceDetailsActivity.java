@@ -38,7 +38,7 @@ public class DeviceDetailsActivity extends Activity implements View.OnClickListe
     private String productId, mac, bluetoothName, modelId, characteristicValue;
 
 
-    private Button btConnect, btDisConnect, btStart, btPause, btDataClear, btRegisterNotify, btUnRegisterNotify, btResistance, btSpeed, btSlope, btVideoDemo;
+    private Button btConnect, btDisConnect, btStart, btPause,btStop, btDataClear, btRegisterNotify, btUnRegisterNotify, btResistance, btSpeed, btSlope, btVideoDemo;
     private EditText etResistance, etSpeed, etSlope;
     private TextView tvContent, tvResistance, tvSpeed, tvSlope, tvCourseInfo, tvPlayTime, tvGear;
 
@@ -88,7 +88,7 @@ public class DeviceDetailsActivity extends Activity implements View.OnClickListe
     private final DeviceListener deviceListener = new DeviceListener() {
         @Override
         public void onConnectStatus(boolean isAutoReconnect, DeviceMangerBean bean) {
-            ((TextView) findViewById(R.id.tvConnectStatus)).setText( MrkDeviceManger.INSTANCE.getTypeName(productId) + " 连接状态:" + bean.getConnectEnum());
+            ((TextView) findViewById(R.id.tvConnectStatus)).setText(MrkDeviceManger.INSTANCE.getTypeName(productId) + " 连接状态:" + bean.getConnectEnum());
 
 
             switch (bean.getConnectEnum()) {
@@ -176,6 +176,9 @@ public class DeviceDetailsActivity extends Activity implements View.OnClickListe
 
         btPause = (Button) findViewById(R.id.btPause);
         btPause.setOnClickListener(this);
+
+        btStop = (Button) findViewById(R.id.btStop);
+        btStop.setOnClickListener(this);
 
         btDataClear = (Button) findViewById(R.id.btDataClear);
         btDataClear.setOnClickListener(this);
@@ -316,6 +319,9 @@ public class DeviceDetailsActivity extends Activity implements View.OnClickListe
                 break;
             case R.id.btPause:
                 deviceControl.devicePause();
+                break;
+            case R.id.btStop:
+                deviceControl.deviceStop();
                 break;
             case R.id.btSpeed:
                 //跑步机只能发送组合指令,即不论发送坡度还是速度,都需要一起
