@@ -261,8 +261,8 @@ MrkDeviceManger.INSTANCE.create(context,mac,productId,bluetoothName,modelId,uniq
 MrkDeviceManger.INSTANCE.create(context,mac,productId,bluetoothName,modelId,uniqueModelIdentify).connect();
 ```
 
-#### 断开设备连接
-把需要断开连接的`mac`地址传入，即可断开连接设备。`mac`地址在搜索到的设备对象跟连接成功后返回的对象里面有。
+#### 断开连接
+把需要断开连接的`mac`地址传入，即可断开连接设备。
 ```
 MrkDeviceManger.INSTANCE.disConnect(mac) 
 ```
