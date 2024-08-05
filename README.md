@@ -249,16 +249,23 @@ MrkDeviceManger.INSTANCE.stopSearch();
 
 **方法1：通过搜索对象连接。**
 
-把搜索到的设备对象`DeviceSearchBean`传入，即可连接设备。
+- 把搜索到的设备对象`DeviceSearchBean`传入，即可连接设备。
 ```
 MrkDeviceManger.INSTANCE.create(context,mac,productId,bluetoothName,modelId,uniqueModelIdentify).connect();
 ```
+
 
 **方法2：通过必要参数连接。**
 
-把搜索到的设备对象`DeviceSearchBean`保存`mac`mac地址，`productId`产品Id，`bluetoothName`蓝牙广播名， `modelId`型号id， `uniqueModelIdentify` 设备特征值。通过这些参数去连接。
+- 把搜索到的设备对象`DeviceSearchBean`保存`mac`mac地址，`productId`产品Id，`bluetoothName`蓝牙广播名， `modelId`型号id， `uniqueModelIdentify` 设备特征值。通过这些参数去连接。
 ```
 MrkDeviceManger.INSTANCE.create(context,mac,productId,bluetoothName,modelId,uniqueModelIdentify).connect();
+```
+
+#### 获取控制
+- 设备连接成功后即可通过以下方法获取控制，`params`可以是设备大类  也可以mac地址。
+```
+MrkDeviceManger.INSTANCE.getDeviceControl(this, params)
 ```
 
 #### 断开连接
@@ -337,6 +344,12 @@ deviceControl = MrkDeviceManger.INSTANCE.create(this, DeviceSearchBean)//搜索�
 ```
 deviceControl = MrkDeviceManger.INSTANCE.create(context,mac,productId,bluetoothName,modelId,uniqueModelIdentify)
   .setOnDeviceListener(deviceListener)//设置设备状态监听
+```
+
+**3.通过已经连接的设备控制**
+- 设备连接成功后即可通过以下方法获取控制，`params`可以是设备大类  也可以mac地址。
+```
+deviceControl = MrkDeviceManger.INSTANCE.getDeviceControl(this, params)
 ```
 
 
