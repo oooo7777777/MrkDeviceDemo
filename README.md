@@ -326,16 +326,16 @@ fun getTypeName(productId: String): String {
 - 设备连接成功后，即可控制设备。
 - 有多种创建控制类的方式，请根据需求选择。
 
-**1.通过必要参数创建**
-把搜索到的设备对象`DeviceSearchBean`保存`mac`mac地址，`productId`产品Id，`bluetoothName`蓝牙广播名， `modelId`型号id， `uniqueModelIdentify` 设备特征值。通过这些参数去连接。
+**1.通过搜索对象创建**
 ```
-deviceControl = MrkDeviceManger.INSTANCE.create(context,mac,productId,bluetoothName,modelId,uniqueModelIdentify)
+deviceControl = MrkDeviceManger.INSTANCE.create(this, DeviceSearchBean)//搜索对象
   .setOnDeviceListener(deviceListener)//设置设备状态监听
 ```
 
-**2.通过搜索对象创建**
+**2.通过必要参数创建**
+- `mac`mac地址，`productId`产品Id，`bluetoothName`蓝牙广播名， `modelId`型号id， `uniqueModelIdentify` 设备特征值。
 ```
-deviceControl = MrkDeviceManger.INSTANCE.create(this, DeviceSearchBean)//搜索对象
+deviceControl = MrkDeviceManger.INSTANCE.create(context,mac,productId,bluetoothName,modelId,uniqueModelIdentify)
   .setOnDeviceListener(deviceListener)//设置设备状态监听
 ```
 
