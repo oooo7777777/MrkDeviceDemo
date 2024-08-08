@@ -38,7 +38,7 @@ public class DeviceDetailsActivity extends Activity implements View.OnClickListe
     private String productId, mac, bluetoothName, modelId, characteristicValue;
 
 
-    private Button btConnect, btDisConnect, btStart, btPause,btStop, btDataClear, btRegisterNotify, btUnRegisterNotify, btResistance, btSpeed, btSlope, btVideoDemo;
+    private Button btConnect, btDisConnect, btStart, btPause, btStop, btDataClear, btRegisterNotify, btUnRegisterNotify, btResistance, btSpeed, btSlope, btVideoDemo;
     private EditText etResistance, etSpeed, etSlope;
     private TextView tvContent, tvResistance, tvSpeed, tvSlope, tvCourseInfo, tvPlayTime, tvGear;
 
@@ -100,7 +100,7 @@ public class DeviceDetailsActivity extends Activity implements View.OnClickListe
                     loading.dismiss();
                     break;
                 case ING:
-                    loading.setTitle("连接中...");
+                    loading.setMessage("连接中...");
                     loading.show();
                     break;
                 case ERROR:
@@ -115,11 +115,11 @@ public class DeviceDetailsActivity extends Activity implements View.OnClickListe
 
             switch (status) {
                 case COUNT_TIME:
-                    loading.setTitle("跑步机启动中");
+                    loading.setMessage("跑步机启动中");
                     loading.show();
                     break;
                 case SLOW_DOWN:
-                    loading.setTitle("跑步机减速中");
+                    loading.setMessage("跑步机减速中");
                     loading.show();
                     break;
                 case START:

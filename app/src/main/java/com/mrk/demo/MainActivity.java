@@ -28,7 +28,7 @@ import com.mrk.device.listener.DeviceDisConnectListener;
 
 public class MainActivity extends Activity {
 
-    private TextView tvOpen;
+    private TextView btOpen;
     private ListView listView;
     private SearchDeviceAdapter adapter;
 
@@ -42,7 +42,6 @@ public class MainActivity extends Activity {
 
         initView();
         registerDeviceListener();
-//        FitnessDeviceManager.getInstance();
     }
 
 
@@ -52,7 +51,7 @@ public class MainActivity extends Activity {
         loading.setMessage("Please wait...");
         loading.setCancelable(false);
 
-        tvOpen = (TextView) findViewById(R.id.tvOpen);
+        btOpen = (TextView) findViewById(R.id.btOpen);
 
         listView = (ListView) findViewById(R.id.listView);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
@@ -91,7 +90,7 @@ public class MainActivity extends Activity {
             }
         });
 
-        findViewById(R.id.tvSearch).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.btSearch).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (ContextCompat.checkSelfPermission(MainActivity.this,
@@ -106,8 +105,8 @@ public class MainActivity extends Activity {
         });
 
         ((TextView) findViewById(R.id.tvBluetoothStatus)).setText("蓝牙开关状态:" + (MrkDeviceManger.INSTANCE.getBluetoothStatus() ? "开启" : "关闭"));
-        tvOpen.setText(MrkDeviceManger.INSTANCE.getBluetoothStatus() ? "关闭蓝牙" : "开启蓝牙");
-        tvOpen.setOnClickListener(new View.OnClickListener() {
+        btOpen.setText(MrkDeviceManger.INSTANCE.getBluetoothStatus() ? "关闭蓝牙" : "开启蓝牙");
+        btOpen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (MrkDeviceManger.INSTANCE.getBluetoothStatus()) {
@@ -119,13 +118,13 @@ public class MainActivity extends Activity {
         });
 
 
-        findViewById(R.id.tvSearchStop).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.btSearchStop).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 MrkDeviceManger.INSTANCE.stopSearch();
             }
         });
-        findViewById(R.id.tvDemo).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.btDemo).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(
@@ -154,15 +153,11 @@ public class MainActivity extends Activity {
             @Override
             public void onBluetoothStatus(BluetoothEnum bluetoothEnum) {
                 ((TextView) findViewById(R.id.tvBluetoothStatus)).setText("蓝牙开关状态:" + bluetoothEnum.name());
-
                 if (bluetoothEnum == BluetoothEnum.OPEN) {
-                    tvOpen.setText("关闭蓝牙");
-
+                    btOpen.setText("关闭蓝牙");
                 } else {
-                    tvOpen.setText("开启蓝牙");
+                    btOpen.setText("开启蓝牙");
                 }
-
-
             }
         }).registerDeviceListener(this, new DeviceListener() {
             @Override
@@ -246,7 +241,7 @@ public class MainActivity extends Activity {
             });
             builder.create().show();
         } else {
-            MrkDeviceManger.INSTANCE.create(this, bean).autoConnectAlways().connect();
+            MrkDeviceManger.INSTANCE.create(this, bean).connect();
         }
     }
 

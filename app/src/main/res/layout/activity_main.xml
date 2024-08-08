@@ -15,72 +15,59 @@
         android:padding="10dp"
         android:text="蓝牙开关状态:" />
 
-    <TextView
-        android:id="@+id/tvSearchStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:gravity="center"
-        android:padding="10dp"
-        android:text="设备搜索状态:" />
-
-    <TextView
-        android:id="@+id/tvOpen"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-
-        android:background="@android:color/holo_blue_bright"
-        android:gravity="center"
-        android:text="开启蓝牙"
-        android:textColor="@android:color/white" />
-
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="10dp"
-        android:background="@android:color/holo_blue_bright"
-        android:orientation="horizontal">
-
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp">
 
         <TextView
-            android:id="@+id/tvSearch"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_weight="1"
+            android:id="@+id/tvSearchStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="开始搜索"
-            android:textColor="@android:color/white" />
+            android:padding="10dp"
+            android:text="设备搜索状态:" />
 
         <ProgressBar
             android:id="@+id/progressBar"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="right"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginEnd="10dp"
             android:visibility="gone"
             tools:visibility="visible" />
-
     </FrameLayout>
 
 
-    <TextView
-        android:id="@+id/tvSearchStop"
+    <Button
+        android:id="@+id/btOpen"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="10dp"
-        android:background="@android:color/holo_blue_bright"
         android:gravity="center"
-        android:text="停止搜索"
-        android:textColor="@android:color/white" />
+        android:text="开启蓝牙" />
 
-    <TextView
-        android:id="@+id/tvDemo"
+
+    <Button
+        android:id="@+id/btSearch"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="10dp"
-        android:background="@android:color/holo_blue_bright"
         android:gravity="center"
-        android:text="模拟进入详情再连接"
-        android:textColor="@android:color/white" />
+        android:text="开始搜索" />
+
+
+    <Button
+        android:id="@+id/btSearchStop"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="停止搜索" />
+
+    <Button
+        android:id="@+id/btDemo"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="模拟进入详情再连接" />
 
     <ListView
         android:id="@+id/listView"
