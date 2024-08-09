@@ -56,7 +56,7 @@ repositories{
 
 dependencies {
     implementation fileTree(include:['*.jar'], dir:'libs')
-    implementation (name:'MrkDevice_x.x.x', ext:'aar')
+    implementation (name:'MrkDevice_1.0.0', ext:'aar')
     implementation 'com.android.support:appcompat-v7:23.1.0'
     implementation "org.jetbrains.kotlin:kotlin-reflect:1.3.21"
     implementation "org.jetbrains.kotlin:kotlin-stdlib:1.3.21"
@@ -121,9 +121,9 @@ android:usesPermissionFlags="neverForLocation" />
 
 
 #### SDK初始化
-在您应用的启动入口调用SDK的初始化代码：`application`为你项目的Application，`isDebug`表示是否是调试模式，调试模式下会打印关键日志。日志TAG为：`BluetoothManager`。
+在您应用的启动入口调用SDK的初始化代码：`application`为你项目的Application，`sign`为签名请联系麦瑞克获取,`isDebug`表示是否是调试模式，调试模式下会打印关键日志。日志TAG为：`BluetoothManager`。
 ```
-MrkDeviceManger.INSTANCE.init(application,isDebug);
+MrkDeviceManger.INSTANCE.init(application,sign,isDebug);
 ```
 
 #### 注册一个全局唯一的蓝牙状态监听器（重新注册会覆盖）
