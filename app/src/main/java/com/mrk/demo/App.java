@@ -6,7 +6,7 @@ import com.mrk.device.MrkDeviceManger;
 
 
 public class App extends Application {
-    String sign = "Ov92oVQaZB4d8XIT2I9Bhd0/sg6YxBkJC+AyGSSjrQE1vT9286tiroJslO4eYTZLiebxKNQVWIw03dxPVOO76FcGZJJ2MHSqJvHgRRk2w+dIcjisz1gUiEEUktswF81H+ezDc93rd8c802zONh3ResNMdxUveKNcEMdlNh6M5vMzMRFT94KlUWtiNpPR48jHLIQsjwzpmTcLWqyAy5Gvqw==";
+    String sign = "9yBhYFw9eav5evuVufkuSQwAbM3rmsuP7UgzFkLElPEo6aXwIJPuNwnn7X7yLyfWPnje42y0lMa/PWu+tgfmSlcGZJJ2MHSqJvHgRRk2w+cLozqbzqjHEWkaE1PIadE5+ezDc93rd8c802zONh3ResNMdxUveKNcEMdlNh6M5vNKod5gilqePVkoo5pF5pXRFuaCQ7usop+poSSbHY6IQw==";
     @Override
     public void onCreate() {
         super.onCreate();
