@@ -121,7 +121,7 @@ android:usesPermissionFlags="neverForLocation" />
 
 
 #### SDK初始化
-在您应用的启动入口调用SDK的初始化代码：`application`为你项目的Application，`sign`为签名请联系麦瑞克获取,`isDebug`表示是否是调试模式，调试模式下会打印关键日志。日志TAG为：`BluetoothManager`。
+在您应用的启动入口调用SDK的初始化代码：`application`为你项目的Application，`sign`为签名，请联系麦瑞克获取,`isDebug`表示是否是调试模式，调试模式下会打印关键日志。日志TAG为：`BluetoothManager`。
 ```
 MrkDeviceManger.INSTANCE.init(application,sign,isDebug);
 ```
