@@ -121,6 +121,9 @@ android:usesPermissionFlags="neverForLocation" />
 
 #### SDK初始化
 在您应用的启动入口调用SDK的初始化代码：`application`为你项目的Application，`sign`为签名，请联系麦瑞克获取,`isDebug`表示是否是调试模式，调试模式下会打印关键日志。日志TAG为：`BluetoothManager`。
+##### sign分为debugSign与releaseSign。
+- debugSign：可连接SDK所支持的所有设备，方便测试以及选品，此sign有效期为30天，过期后请联系麦瑞克重新获取。
+- releaseSign：只可连接与麦瑞克协商合作的设备，避免连接未合作的设备，引起不必要的问题。
 ```
 MrkDeviceManger.INSTANCE.init(application,sign,isDebug);
 ```
